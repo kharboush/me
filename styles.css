@@ -30,7 +30,6 @@ a:hover {
 
 #text {
   font-weight: lighter;
-  padding: 20px;
   width: 400px;
   margin: 20% auto;
   position: relative;
@@ -43,5 +42,5 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 1px;
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
 }
