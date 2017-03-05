@@ -9,7 +9,6 @@ h1 {
   font-weight: bold;
   font-family: "libre baskerville", sans-serif;
   line-height: 1;
-  margin: 16px;
 
 }
 
@@ -17,7 +16,6 @@ p {
   font-size: 1em;
   font-family: "open sans", serif;
   line-height: 1.6;
-  margin-left: 16px;
 }
 
 a {
@@ -44,7 +42,6 @@ a:hover {
   color: #aaaaaa;
   text-transform: uppercase;
   letter-spacing: 1px;
-  text-align: center;
   position: absolute;
   bottom: 0;
 
