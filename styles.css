@@ -31,7 +31,7 @@ a:hover {
 #text {
   font-weight: lighter;
   width: 400px;
-  margin: 20% auto;
+  margin: 0 auto;
   position: relative;
 }
 
@@ -39,6 +39,7 @@ a:hover {
   font-size: 0.7em;
   font-weight: normal;
   color: #aaaaaa;
+  text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
   position: absolute;
