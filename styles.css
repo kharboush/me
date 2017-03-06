@@ -1,7 +1,7 @@
 body {
   background-color: #fcfcfc;  /* light gray */
   font-size: 16px;
-  padding: 0 20px 0 20px;
+  padding: 0 10px 0 10px;
 }
 
 h1 {
@@ -44,6 +44,6 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 1px;
   position: fixed;
-  bottom: 10px;
+  bottom: 8px;
   height: 30px;
 }
