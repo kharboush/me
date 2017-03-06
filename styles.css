@@ -45,5 +45,17 @@ a:hover {
   letter-spacing: 1px;
   position: fixed;
   bottom: 8px;
+  left: 10px;
+  height: 30px;
+}
+#footer2 {
+  font-size: 0.6em;
+  font-weight: bold;
+  color: #aaaaaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: fixed;
+  bottom: 8px;
+  right: 10px;
   height: 30px;
 }
