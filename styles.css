@@ -1,7 +1,7 @@
 body {
   background-color: #fcfcfc;  /* light gray */
   font-size: 16px;
-  margin: 0 20px 0 20px;
+  padding: 0 20px 0 20px;
 }
 
 h1 {
@@ -46,5 +46,4 @@ a:hover {
   position: absolute;
   bottom: 10px;
   height: 30px;
-  width: 100%;
 }
