@@ -40,9 +40,10 @@ a:hover {
   font-size: 0.7em;
   font-weight: normal;
   color: #aaaaaa;
-  text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
-  position: absolute;
-  bottom: 0;
+  position: fixed;
+  bottom: 0px;
+  height: 30px;
+  width: 100%;
 }
