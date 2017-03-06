@@ -1,3 +1,5 @@
+html, body {margin: 0; height: 100%; overflow: hidden}
+
 body {
   background-color: #fcfcfc;  /* light gray */
   font-size: 16px;
@@ -14,10 +16,7 @@ h1 {
 }
 
 p {
-  color: #5a5a5a; 
-  font-size: 1em;
   font-family: "open sans", serif;
-  line-height: 1.6;
 }
 
 a {
@@ -31,6 +30,9 @@ a:hover {
 }
 
 #text {
+  color: #5a5a5a;
+  line-height: 1.6;
+  font-size: 1em;
   font-weight: lighter;
   width: 400px;
   margin: 10% auto;
@@ -38,8 +40,8 @@ a:hover {
 }
 
 #footer {
-  font-size: 0.7em;
-  font-weight: normal;
+  font-size: 0.6em;
+  font-weight: bold;
   color: #aaaaaa;
   text-transform: uppercase;
   letter-spacing: 1px;
