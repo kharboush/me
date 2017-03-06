@@ -2,7 +2,7 @@ body {
   color: #5a5a5a;             /* dark gray */
   background-color: #fcfcfc;  /* light gray */
   font-size: 16px;
-  padding-left: 10px;
+  padding-left: 0 10px 0 10px;
 }
 
 h1 {
