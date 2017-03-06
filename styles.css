@@ -3,7 +3,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 body {
   background-color: #fcfcfc;  /* light gray */
   font-size: 16px;
-  padding-left: 0 20px 0 20px;
+  padding: 0 20px 0 20px;
 }
 
 h1 {
