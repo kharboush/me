@@ -43,7 +43,7 @@ a:hover {
   color: #aaaaaa;
   text-transform: uppercase;
   letter-spacing: 1px;
-  position: absolute;
+  position: fixed;
   bottom: 10px;
   height: 30px;
 }
