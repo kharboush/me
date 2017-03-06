@@ -46,7 +46,7 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 1px;
   position: fixed;
-  bottom: 0px;
+  bottom: 10px;
   height: 30px;
   width: 100%;
 }
