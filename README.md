@@ -1,2 +1,2 @@
 # kharboush.com
-Personal website for design.
+Personal website.
