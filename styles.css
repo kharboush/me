@@ -9,14 +9,15 @@ body
 
 h1
 {
-    font-family: 'Libre Baskerville', sans-serif;
+    font-family: 'Libre Baskerville', serif;
     font-size: 2em;
     font-weight: bold;
     line-height: 1;
-
-    margin-left: 6px;
-
     color: #425671;
+}
+
+h1 img {
+    margin-right: 6px;
 }
 
 a
@@ -52,7 +53,7 @@ footer
     font-size: .6em;
     font-weight: bold;
 
-    position: absolute;
+    position: fixed;
     bottom: 8px;
 
     height: 30px;
@@ -61,6 +62,11 @@ footer
     text-transform: uppercase;
 
     color: #aaa;
+}
+
+footer div
+{
+    position: fixed;
 }
 
 footer div:first-of-type
