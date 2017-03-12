@@ -69,12 +69,12 @@ footer div
     position: fixed;
 }
 
-footer div:first-of-type
+footer p:first-of-type
 {
     left: 20px;
 }
 
-footer div:last-of-type
+footer p:last-of-type
 {
     right: 20px;
 }
