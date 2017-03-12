@@ -64,11 +64,6 @@ footer
     color: #aaa;
 }
 
-footer div
-{
-    position: fixed;
-}
-
 footer p:first-of-type
 {
     left: 20px;
