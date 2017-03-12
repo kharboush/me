@@ -64,12 +64,12 @@ footer
     color: #aaa;
 }
 
-footer p:first-of-type
+p:first-of-type
 {
     left: 20px;
 }
 
-footer p:last-of-type
+p:last-of-type
 {
     right: 20px;
 }
