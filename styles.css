@@ -52,7 +52,7 @@ footer
     font-size: .6em;
     font-weight: bold;
 
-    position: fixed;
+    position: absolute;
     bottom: 8px;
 
     height: 30px;
