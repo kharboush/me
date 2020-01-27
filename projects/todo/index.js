@@ -4,7 +4,17 @@ $(document).ready(() => {
 
   const todosArray = [];
 
-  
+  const emptyState = () => {
+    if (todosArray.length === 0) {
+      $('#todo-list').append(`
+      <div class="todo-element">
+      <p class="empty-state">Add a todo to get started</p>
+      </div>
+      `)
+    }
+  }
+  emptyState()
+
   const addToArray = (array, element) => {
     array.splice(-1, 0, element)
   }
@@ -25,6 +35,7 @@ $(document).ready(() => {
     <hr>
     `);
   };
+  
 
   const todosRefresh = (array, container) => {
     const $container = $(container);
@@ -33,11 +44,18 @@ $(document).ready(() => {
       addTodoFn(todo, $container)
     });
   };
+
+  const todosReorder = () => {
+    todosArray.forEach((todo, index) => {
+      todo.id = index;
+    });
+  }
   
   $(`#addtodo-btn`).click(() => {
+    todosReorder();
     const $newTodoText = $('#addtodo-input-text').val();
     const $newTodoDate = $(`#addtodo-input-date`).val();
-    const newTodo = {id: (todosArray.length + 1), name: $newTodoText, due: $newTodoDate, isDone: false}
+    const newTodo = {id: todosArray.length, name: $newTodoText, due: $newTodoDate, isDone: false}
     if($newTodoText && $newTodoDate) {
       addToArray(todosArray, newTodo)
       todosRefresh(todosArray, '#todo-list')
@@ -47,20 +65,22 @@ $(document).ready(() => {
       //   addTodoFn($newTodoText)
       // }
       $('#addtodo-input-text').val(''); // Clear text field
-      $('#addtodo-input-date').val('');
+      $('#addtodo-input-date').val(''); // Clear data field
     } else {
       alert('Please add text and date.')
     }
 
   });
 
-  $('.todo-window').on('click', '[data-id]', (ev) => {
+  $('.todo-window').on('click', '[data-id]', () => {
     const todoid = '[data-id]'
     removeFromArray(todosArray, todoid)
     todosRefresh(todosArray, '#todo-list')
     // const target = $(ev.target)
     // $(target).parent().remove();
+    emptyState()
     alert('Todo Deleted!');
+    todosReorder();
   });
 
   
