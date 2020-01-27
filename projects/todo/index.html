@@ -1,239 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>To-do</title>
-    <style>
-        body{
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: rgba(245, 131, 0, 0.01);
-        }
-        h1{
-            margin-bottom:0px;
-            color: rgb(81, 0, 173);
-        }
-        form{
-            display:inline-block;
-            border-radius: 16px;
-            margin:20px;
-            margin-top: 8px;
-            padding: 16px;
-            box-shadow: 0px 4px 8px 2px rgba(100, 100, 100, 0.3);
-            text-align: left;
-            background-color: rgb(255, 255, 255);;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>¡Todos!</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
-        p{
-            display:inline;
-            margin-left: 4px;
-        }
-
-        button{
-            cursor:pointer
-        }
-
-        hr{
-            background-color:rgba(100, 100, 100, 0);
-            opacity: 40%;
-            margin: 0px;
-        }
-
-        .addtodo{
-            display:inline-block;
-            border-radius: 8px;
-            margin-top: 16px;
-        }
-
-        .inputstuff{
-            display:inline-block;
-            padding: 16px;
-            height: 12px;
-            width: 180px;
-            margin-top: 0px;
-            background-color: rgb(115, 0, 247, 0);
-            font-size: 15px;
-            border: none;
-            margin-right: 8px;
-            padding-left: 4px;
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: 600;
-            outline: none;
-        }
-        
-        .inputstuff:focus{
-            box-shadow: 0px 2px;
-            color: rgb(115, 0, 247);
-        }
-
-        .dateinput{
-            display:inline-block;
-            padding: 16px;
-            padding-right: 0px;
-            height: 16px;
-            font-size: 14px;
-            background-color: rgb(115, 0, 247, 0);
-            border: none;
-            padding-left: 0px;
-            outline: none;
-            margin-right: 8px;
-        }
-
-        .addtodobutton{
-            display:inline-block;
-            border-radius: 8px;
-            padding: 16px;
-            border: none;
-            background-color: rgb(115, 0, 247);
-            box-shadow: 0px 0px 6px rgb(115, 0, 247);
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        .addtodobutton:hover{
-            box-shadow:none;
-            animation-name: example;
-        }
-
-        .delbutton{
-            float: right;
-            background-color: white;
-            font-size: 14px;
-            color:rgb(115, 0, 247);
-            display: none;
-            border: 0px;
-            margin: 0px;
-            padding: 0px;
-        }
-
-        .delbutton:hover{
-            text-decoration: underline;
-        }
-
-        .todo-element{
-            text-align:justify;
-            margin-bottom: 0px;
-            margin-top: 0px;
-            width: 100%;
-        }
-
-        .todo-element:hover #showhover {
-            display: block;
-        }
-
-        .todo-element:hover #hidehover {
-            display: none;
-        }
-        
-        .todocheck {
-            top: -2px;
-            position: relative;
-            cursor: pointer;
-        }
-
-        #toggle:checked {
-            color: red;
-        }
-
-        .todotext {
-            margin-left: 8px;
-        }
-
-        .todocheck:checked + p {
-            text-decoration: line-through;            
-            color: rgba(100, 100, 100, 0.5);;
-        }
-
-        .date{
-            color:rgba(100, 100, 100, 0.5);
-            font-size: 14px;
-            border: none;
-            padding-top: 1px;
-            float:right;
-        }
-
-        .bottom-part{
-            background-color: rgba(245, 131, 0, 0.2);
-            display: inline-block;
-            margin: 8px -16px -16px -16px;
-            border-radius: 0px 0px 16px 16px;
-            padding: 16px;
-            padding-top: 0px;
-        }
-
-        .btn{
-            padding-left: 0px;
-            padding-top: 16px;
-            padding-bottom: 16px;
-            display: inline-block;
-            width: 100%;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <h1>¡Todos!</h1><br>
-    <form action="">
-        <div class="todo-element">
-            <label class="btn" for="toggle1">
-                <input class="todocheck" id="toggle1" type="checkbox"><p class="todotext">Do the laundry</p>
-                <div class="date" id="hidehover">Wed, July 24</div>
-                <button class="delbutton" id="showhover">Edit</button class="delbutton">
-            </label>
-        </div>
-        <hr>
-        <div for="toggle" class="todo-element">
-            <label class="btn" for="toggle2">
-                <input class="todocheck" id="toggle2" type="checkbox"><p class="todotext">Buy more sugar</p>
-                <div class="date" id="hidehover">Wed, July 24</div>
-                <button class="delbutton" id="showhover">Edit</button class="delbutton">
-            </label>
-        </div>
-        <hr>
-        <div class="todo-element">
-            <label class="btn" for="toggle3">
-                <input class="todocheck" id="toggle3" type="checkbox"><p class="todotext">Acquire all six infinity stones</p>
-                <div class="date" id="hidehover">Wed, July 24</div>
-                <button class="delbutton" id="showhover">Edit</button class="delbutton">
-            </label>
-        </div>
-        <hr>
-        <div class="todo-element">
-            <label class="btn" for="toggle4">
-                <input class="todocheck" id="toggle4" type="checkbox"><p class="todotext">Take over the universe</p>
-                <div class="date" id="hidehover">Wed, July 24</div>
-                <button class="delbutton" id="showhover">Edit</button>
-            </label>
-        </div>
-        <hr>
-        <div class="todo-element">
-            <label class="btn" for="toggle5">
-                <input class="todocheck" id="toggle5" type="checkbox"><p class="todotext">Put clothes in the dryer</p>
-                <div class="date" id="hidehover">Thu, July 25</div>
-                <button class="delbutton" id="showhover">Edit</button>
-            </label>
-        </div>
-        <hr>
-        <div class="todo-element">
-            <label class="btn" for="toggle6">
-                <input class="todocheck" id="toggle6" type="checkbox"><p class="todotext">Do my makeup routine</p class="todotext">
-                <div class="date" id="hidehover">Thu, July 25</div>
-                <button class="delbutton" id="showhover">Edit</button>
-            </label>
-        </div>
-
-        <div class="bottom-part">
-            <div class="addtodo">
-                <input class="inputstuff" type="text" placeholder="Type a todo...">
-                <input class="dateinput" type="date">
-                <button class="addtodobutton">ADD TODO</button>
+        <script src="https://momentjs.com/downloads/moment.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1>¡Todos!</h1><br>
+        <form class="todo-window" action="">
+            <div id="todo-list" class="todo-list">
+                <div class="todo-element">
+                    <p class="empty-state">Add a todo to get started</p>
+                </div>
             </div>
-        </div>
-    </form>
 
-</body>
+            <div class="bottom">
+                <div class="bottom-addtodo-element">
+                    <input id="addtodo-input-text" class="inputstuff" type="text" value="" placeholder="Type a todo...">
+                    <input id="addtodo-input-date" class="dateinput" type="date">
+                    <button id="addtodo-btn" type="button" class="addtodobutton">ADD TODO</button>
+                </div>
+            </div>
+        </form>
+        <script type="text/javascript" src="./index.js"></script>
+
+    </body>
 </html>
