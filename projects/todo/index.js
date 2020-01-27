@@ -15,7 +15,6 @@ $(document).ready(() => {
   
   const addTodoFn = (todo, container) => {
     $(container).append(`
-    <div class="todo-wrapper">
     <div class="todo-element">
     <label class="btn" for="check-${todo.id}">
     <input class="todocheck" id="check-${todo.id}" type="checkbox"><p class="todotext">${todo.name}</p>
@@ -24,7 +23,6 @@ $(document).ready(() => {
     </label>
     </div>
     <hr>
-    </div>
     `);
   };
 
@@ -58,7 +56,7 @@ $(document).ready(() => {
 
   $('.todo-window').on('click', '[data-id]', (ev) => {
     const todoid = '[data-id]'
-    removeFromArray(todosArray, todoid)
+    removeFromArray(todosArray, (todoid - 1))
     todosRefresh(todosArray, '#todo-list')
     // const target = $(ev.target)
     // $(target).parent().remove();
