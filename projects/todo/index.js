@@ -7,9 +7,9 @@ $(document).ready(() => {
   const emptyState = () => {
     if (todosArray.length === 0) {
       $('#todo-list').append(`
-      <div class="todo-element">
-      <p class="empty-state">Add a todo to get started</p>
-      </div>
+        <div class="todo-element">
+          <p class="empty-state">Add a todo to get started</p>
+        </div>
       `)
     }
   }
@@ -25,14 +25,14 @@ $(document).ready(() => {
   
   const addTodoFn = (todo, container) => {
     $(container).prepend(`
-    <div id="todo-element-${todo.id}" class="todo-element">
-    <label class="btn" for="check-${todo.id}">
-    <input class="todocheck" data-check-id="${todo.id}" id="check-${todo.id}" type="checkbox" ${todo.isDone ? 'checked' : ''}><p class="todotext">${todo.name}</p>
-    <div class="date">${moment(todo.due).format('ddd, MMM Do')}</div>
-    <button class="delbutton" data-id="${todo.id}">Remove</button>
-    </label>
-    </div>
-    <hr>
+      <div id="todo-element-${todo.id}" class="todo-element">
+        <label class="btn" for="check-${todo.id}">
+          <input class="todocheck" data-check-id="${todo.id}" id="check-${todo.id}" type="checkbox" ${todo.isDone ? 'checked' : ''}><p class="todotext">${todo.name}</p>
+          <div class="date">${moment(todo.due).format('ddd, MMM Do')}</div>
+          <button class="delbutton" data-id="${todo.id}">Remove</button>
+        </label>
+      </div>
+      <hr>
     `);
   };
   
@@ -50,6 +50,7 @@ $(document).ready(() => {
       addTodoFn(todo, $container)
     });
   };
+
   
   $(`#addtodo-btn`).click(() => {
     const $newTodoText = $('#addtodo-input-text').val();
@@ -81,5 +82,15 @@ $(document).ready(() => {
     alert('Todo Deleted!');
   });
 
-  
+  $('.todo-window').on('click', '.todocheck', () => {
+    // alert('Todo Toggled!');
+    let todoid = $(event.target).attr('data-check-id');
+    if($(event.target).is(":checked")){
+      todosArray[todoid].isDone = true;
+      console.log(todosArray[todoid].isDone)
+    } else if($(event.target).is(":not(:checked)")){
+      todosArray[todoid].isDone = false;
+    }
+  });
+
 });
