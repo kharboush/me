@@ -16,16 +16,16 @@ $(document).ready(() => {
   emptyState()
 
   const addToArray = (array, element) => {
-    array.splice(-1, 0, element)
+    array.push(element)
   }
   
   const removeFromArray = (array, id) => {
-    array.splice((id - 1), 1)
+    array.splice(id, 1)
   }
   
   const addTodoFn = (todo, container) => {
-    $(container).append(`
-    <div class="todo-element">
+    $(container).prepend(`
+    <div id="todo-element-${todo.id}" class="todo-element">
     <label class="btn" for="check-${todo.id}">
     <input class="todocheck" id="check-${todo.id}" type="checkbox"><p class="todotext">${todo.name}</p>
     <div class="date">${moment(todo.due).format('ddd, MMM Do')}</div>
@@ -36,23 +36,22 @@ $(document).ready(() => {
     `);
   };
   
-
-  const todosRefresh = (array, container) => {
-    const $container = $(container);
-    $container.empty();
-    array.forEach(todo => {
-      addTodoFn(todo, $container)
-    });
-  };
-
   const todosReorder = () => {
     todosArray.forEach((todo, index) => {
       todo.id = index;
     });
   }
   
+  const todosRefresh = (array, container) => {
+    todosReorder()
+    const $container = $(container);
+    $container.empty();
+    array.forEach(todo => {
+      addTodoFn(todo, $container)
+    });
+  };
+  
   $(`#addtodo-btn`).click(() => {
-    todosReorder();
     const $newTodoText = $('#addtodo-input-text').val();
     const $newTodoDate = $(`#addtodo-input-date`).val();
     const newTodo = {id: todosArray.length, name: $newTodoText, due: $newTodoDate, isDone: false}
@@ -73,14 +72,13 @@ $(document).ready(() => {
   });
 
   $('.todo-window').on('click', '[data-id]', () => {
-    const todoid = '[data-id]'
+    let todoid = $(event.target).attr('data-id');
     removeFromArray(todosArray, todoid)
     todosRefresh(todosArray, '#todo-list')
     // const target = $(ev.target)
     // $(target).parent().remove();
     emptyState()
     alert('Todo Deleted!');
-    todosReorder();
   });
 
   
