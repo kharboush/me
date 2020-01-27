@@ -56,7 +56,7 @@ $(document).ready(() => {
 
   $('.todo-window').on('click', '[data-id]', (ev) => {
     const todoid = '[data-id]'
-    removeFromArray(todosArray, (todoid - 1))
+    removeFromArray(todosArray, todoid)
     todosRefresh(todosArray, '#todo-list')
     // const target = $(ev.target)
     // $(target).parent().remove();
