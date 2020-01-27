@@ -27,7 +27,7 @@ $(document).ready(() => {
     $(container).prepend(`
     <div id="todo-element-${todo.id}" class="todo-element">
     <label class="btn" for="check-${todo.id}">
-    <input class="todocheck" id="check-${todo.id}" type="checkbox"><p class="todotext">${todo.name}</p>
+    <input class="todocheck" data-check-id="${todo.id}" id="check-${todo.id}" type="checkbox" ${todo.isDone ? 'checked' : ''}><p class="todotext">${todo.name}</p>
     <div class="date">${moment(todo.due).format('ddd, MMM Do')}</div>
     <button class="delbutton" data-id="${todo.id}">Remove</button>
     </label>
@@ -55,18 +55,18 @@ $(document).ready(() => {
     const $newTodoText = $('#addtodo-input-text').val();
     const $newTodoDate = $(`#addtodo-input-date`).val();
     const newTodo = {id: todosArray.length, name: $newTodoText, due: $newTodoDate, isDone: false}
-    if($newTodoText && $newTodoDate) {
+    if (!($newTodoText) || !($newTodoDate)) {
+      alert('Please add text and date.')
+    } else if ($newTodoText.length > 40) {
+      alert('Please make your text shorter.')
+    } else {
       addToArray(todosArray, newTodo)
       todosRefresh(todosArray, '#todo-list')
-  
-      
       // if ($newTodoText.length > 0) {
       //   addTodoFn($newTodoText)
       // }
       $('#addtodo-input-text').val(''); // Clear text field
       $('#addtodo-input-date').val(''); // Clear data field
-    } else {
-      alert('Please add text and date.')
     }
 
   });
