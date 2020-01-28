@@ -1,8 +1,8 @@
-const addTodoClick = callback =>
+const addTodoOnClick = callback =>
   $(`.todo-window`).on('click', '#addtodo-btn', callback);
-const deleteTodoClick = callback =>
+const deleteTodoOnClick = callback =>
   $(`.todo-window`).on('click', '[data-id]', callback);
-const toggleTodoClick = callback =>
+const toggleTodoOnClick = callback =>
   $(`.todo-window`).on('click', '[data-check-id]', callback);
 
-export { addTodoClick, deleteTodoClick, toggleTodoClick };
+export { addTodoOnClick, deleteTodoOnClick, toggleTodoOnClick };
