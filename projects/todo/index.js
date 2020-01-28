@@ -54,12 +54,19 @@ $(document).ready(() => {
   
   $(`#addtodo-btn`).click(() => {
     const $newTodoText = $('#addtodo-input-text').val();
-    const $newTodoDate = $(`#addtodo-input-date`).val();
+    let $newTodoDate;
+
+    if ($(`#addtodo-input-date`).val()) {
+      $newTodoDate = $('#addtodo-input-text').val()
+    } else {
+      $newTodoDate = new Date();
+    }
+
     const newTodo = {id: todosArray.length, name: $newTodoText, due: $newTodoDate, isDone: false}
-    if (!($newTodoText) || !($newTodoDate)) {
-      alert('Please add text and date.')
+    if (!($newTodoText)) {
+      alert('Hey! Your todo doesn\'t have text!')
     } else if ($newTodoText.length > 40) {
-      alert('Please make your text shorter.')
+      alert('This todo is too long!')
     } else {
       addToArray(todosArray, newTodo)
       todosRefresh(todosArray, '#todo-list')
