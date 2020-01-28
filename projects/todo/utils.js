@@ -21,9 +21,9 @@ const dispMsg = (text) => {
 
 const addNewTodoText = (text, element) => {
   if (!(text) || !(text).replace(/\s/g, '').length) {
-    // alert('Hey! Your todo doesn\'t have text!')
+    dispMsg('Please add text')
   } else if (text.length > 40) {
-    // alert('This todo is too long!')
+    dispMsg('Todo is too long')
   } else {
     addToArray(todosArray, element)
     todosRefresh(todosArray, '#todo-list')
@@ -56,8 +56,6 @@ const addTodo = () => {
   const newTodo = {id: todosArray.length, name: $newTodoText, due: $newTodoDate, isDone: false}
 
   addNewTodoText($newTodoText, newTodo)
-
-  dispMsg('Todo Added');
 }
 
 const addTodoFn = (todo, container) => {
@@ -74,10 +72,10 @@ const addTodoFn = (todo, container) => {
 };
 
 const toggleTodo = () => {
-  dispMsg('Todo Toggled');
   let todoid = $(event.target).attr('data-check-id');
   if($(event.target).is(":checked")){
     todosArray[todoid].isDone = true;
+    dispMsg('Ch-ch-ch-check');
   } else if($(event.target).is(":not(:checked)")){
     todosArray[todoid].isDone = false;
   }
