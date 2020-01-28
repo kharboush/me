@@ -8,7 +8,7 @@ $(document).ready(() => {
     if (todosArray.length === 0) {
       $('#todo-list').append(`
         <div class="todo-element">
-          <p class="empty-state">Add a todo to get started</p>
+          <p class="empty-state">¡All Done!</p>
         </div>
       `)
     }
@@ -87,7 +87,6 @@ $(document).ready(() => {
     let todoid = $(event.target).attr('data-check-id');
     if($(event.target).is(":checked")){
       todosArray[todoid].isDone = true;
-      console.log(todosArray[todoid].isDone)
     } else if($(event.target).is(":not(:checked)")){
       todosArray[todoid].isDone = false;
     }
