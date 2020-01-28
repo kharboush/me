@@ -12,11 +12,18 @@ const emptyState = () => {
   }
 }
 
+const dispMsg = (text) => {
+  $('#heading').text("¡"+text+"!")
+  setTimeout(() => {
+    $('#heading').text("¡Todos!")
+  }, 1000);
+}
+
 const addNewTodoText = (text, element) => {
   if (!(text) || !(text).replace(/\s/g, '').length) {
-    alert('Hey! Your todo doesn\'t have text!')
+    // alert('Hey! Your todo doesn\'t have text!')
   } else if (text.length > 40) {
-    alert('This todo is too long!')
+    // alert('This todo is too long!')
   } else {
     addToArray(todosArray, element)
     todosRefresh(todosArray, '#todo-list')
@@ -50,6 +57,7 @@ const addTodo = () => {
 
   addNewTodoText($newTodoText, newTodo)
 
+  dispMsg('Todo Added');
 }
 
 const addTodoFn = (todo, container) => {
@@ -66,13 +74,14 @@ const addTodoFn = (todo, container) => {
 };
 
 const toggleTodo = () => {
-  // alert('Todo Toggled!');
+  dispMsg('Todo Toggled');
   let todoid = $(event.target).attr('data-check-id');
   if($(event.target).is(":checked")){
     todosArray[todoid].isDone = true;
   } else if($(event.target).is(":not(:checked)")){
     todosArray[todoid].isDone = false;
   }
+
 }
 
 const deleteTodo = () => {
@@ -82,7 +91,7 @@ const deleteTodo = () => {
   // const target = $(ev.target)
   // $(target).parent().remove();
   emptyState()
-  alert('Todo Deleted!');
+  dispMsg('Todo Deleted');
 }
 
 const todosReorder = () => {
