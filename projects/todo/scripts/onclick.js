@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { todosArray } from "./database.js"
-import { emptyState, removeFromArray, todosRefresh, addNewTodoText, dispMsg } from "./utils.js"
+import { removeFromArray, todosRefresh, addNewTodoText, dispMsg } from "./utils.js"
 
 const addTodo = () => {
   const $newTodoText = $('#addtodo-input-text').val();
@@ -43,10 +43,9 @@ const toggleTodo = () => {
 const deleteTodo = () => {
   let todoid = +$(event.target).attr('data-id');
   removeFromArray(todosArray, todoid)
-  todosRefresh(todosArray, '#todo-list')
+  todosRefresh()
   // const target = $(ev.target)
   // $(target).parent().remove();
-  emptyState()
   dispMsg('Todo Deleted');
 }
 

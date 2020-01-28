@@ -2,7 +2,7 @@
 
 import { todosArray } from "./database.js"
 
-const emptyState = () => {
+const checkEmptyState = () => {
   if (todosArray.length === 0) {
     $('#todo-list').append(`
       <div class="todo-element">
@@ -27,20 +27,10 @@ const removeFromArray = (array, id) => {
   array.splice(id, 1)
 }
 
-const addNewTodoText = (text, element) => {
-  if (!(text) || !(text).replace(/\s/g, '').length) {
-    dispMsg('Please add text')
-  } else if (text.length > 40) {
-    dispMsg('Todo is too long')
-  } else {
-    addToArray(todosArray, element)
-    todosRefresh(todosArray, '#todo-list')
-    // if ($newTodoText.length > 0) {
-    //   addTodoFn($newTodoText)
-    // }
-    $('#addtodo-input-text').val(''); // Clear text field
-    $('#addtodo-input-date').val(''); // Clear data field
-  }
+const todosReorder = () => {
+  todosArray.forEach((todo, index) => {
+    todo.id = index;
+  });
 }
 
 const appendTodoHtml = (todo, container) => {
@@ -56,19 +46,30 @@ const appendTodoHtml = (todo, container) => {
   `);
 };
 
-const todosReorder = () => {
-  todosArray.forEach((todo, index) => {
-    todo.id = index;
-  });
-}
-
-const todosRefresh = (array, container) => {
+const todosRefresh = () => {
   todosReorder()
-  const $container = $(container);
+  const $container = $('#todo-list');
   $container.empty();
-  array.forEach(todo => {
+  todosArray.forEach(todo => {
     appendTodoHtml(todo, $container)
   });
+  checkEmptyState()
 };
 
-export { emptyState, addToArray, removeFromArray, appendTodoHtml, todosReorder, todosRefresh, addNewTodoText, dispMsg }
+const addNewTodoText = (text, element) => {
+  if (!(text) || !(text).replace(/\s/g, '').length) {
+    dispMsg('Please add text')
+  } else if (text.length > 40) {
+    dispMsg('Todo is too long')
+  } else {
+    addToArray(todosArray, element)
+    todosRefresh()
+    // if ($newTodoText.length > 0) {
+    //   addTodoFn($newTodoText)
+    // }
+    $('#addtodo-input-text').val(''); // Clear text field
+    $('#addtodo-input-date').val(''); // Clear data field
+  }
+}
+
+export { removeFromArray, todosRefresh, addNewTodoText, dispMsg }
