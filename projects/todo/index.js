@@ -7,7 +7,7 @@ $(document).ready(() => {
 
   emptyState()
   
-  addTodoClick (addTodo);
+  addTodoClick (addTodo)
 
   deleteTodoClick (deleteTodo)
 
