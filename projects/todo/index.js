@@ -57,7 +57,8 @@ $(document).ready(() => {
     let $newTodoDate;
 
     if ($(`#addtodo-input-date`).val()) {
-      $newTodoDate = $('#addtodo-input-text').val()
+      $newTodoDate = $('#addtodo-input-date').val()
+      console.log(($(`#addtodo-input-date`).val()).toString().length)
     } else {
       $newTodoDate = new Date();
     }
