@@ -1,0 +1,3 @@
+const todosArray = [];
+
+export { todosArray };
