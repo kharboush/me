@@ -75,12 +75,19 @@ const toggleTodo = () => {
   let todoid = $(event.target).attr('data-check-id');
   if($(event.target).is(":checked")){
     todosArray[todoid].isDone = true;
-    if(Math.floor(Math.random() * 3) === 0) {
-      dispMsg('Ch-ch-ch-check');
-    } else if (Math.floor(Math.random() * 3) === 1) {
-      dispMsg('Niiiice')
+    const randomNumber = Math.floor(Math.random() * 5);
+    if(randomNumber === 0) {
+      dispMsg('Touchdown');
+    } else if (randomNumber === 1) {
+      dispMsg('Niiice')
+    } else if (randomNumber === 2) {
+      dispMsg('Awesomesauce')
+    } else if (randomNumber === 3) {
+      dispMsg('Cool Beans')
+    } else if (randomNumber === 4) {
+      dispMsg('High Five')
     } else {
-      dispMsg('Touchdown')
+      dispMsg('Ch-ch-ch-check')
     }
   } else if($(event.target).is(":not(:checked)")){
     todosArray[todoid].isDone = false;
