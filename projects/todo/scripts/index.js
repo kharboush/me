@@ -4,7 +4,7 @@ import { addTodoOnClick, deleteTodoOnClick, toggleTodoOnClick } from './events.j
 import { emptyState } from './utils.js';
 import { addTodo, toggleTodo, deleteTodo } from './onclick.js';
 
-$(document).ready(() => {
+(() => {
   emptyState();
 
   addTodoOnClick(addTodo);
@@ -12,4 +12,4 @@ $(document).ready(() => {
   deleteTodoOnClick(deleteTodo);
 
   toggleTodoOnClick(toggleTodo);
-});
+})()

@@ -19,6 +19,14 @@ const dispMsg = (text) => {
   }, 1000);
 }
 
+const addToArray = (array, element) => {
+  array.push(element)
+}
+
+const removeFromArray = (array, id) => {
+  array.splice(id, 1)
+}
+
 const addNewTodoText = (text, element) => {
   if (!(text) || !(text).replace(/\s/g, '').length) {
     dispMsg('Please add text')
@@ -33,14 +41,6 @@ const addNewTodoText = (text, element) => {
     $('#addtodo-input-text').val(''); // Clear text field
     $('#addtodo-input-date').val(''); // Clear data field
   }
-}
-
-const addToArray = (array, element) => {
-  array.push(element)
-}
-
-const removeFromArray = (array, id) => {
-  array.splice(id, 1)
 }
 
 const appendTodoHtml = (todo, container) => {
@@ -61,7 +61,6 @@ const todosReorder = () => {
     todo.id = index;
   });
 }
-
 
 const todosRefresh = (array, container) => {
   todosReorder()
