@@ -2,6 +2,7 @@ body{
     text-align: center;
     font-family: Quicksand, Helvetica, sans-serif;
     background-color: rgba(245, 131, 0, 0.01);
+    transition: 0.5s;
 }
 h1{
     margin-bottom:0px;

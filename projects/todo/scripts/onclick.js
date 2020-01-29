@@ -1,6 +1,5 @@
 /* eslint-disable */
-import { todosArray } from "./database.js"
-import { removeFromArray, todosRefresh, addNewTodoText, dispMsg } from "./utils.js"
+import { removeFromServer, toggleFromServer, addNewTodoText, dispMsg } from "./utils.js"
 
 const addTodo = () => {
   const $newTodoText = $('#addtodo-input-text').val();
@@ -12,15 +11,15 @@ const addTodo = () => {
     $newTodoDate = new Date();
   }
 
-  const newTodo = {id: todosArray.length, name: $newTodoText, due: $newTodoDate, isDone: false}
+  const newTodo = { name: $newTodoText, due: $newTodoDate, isDone: false}
 
   addNewTodoText($newTodoText, newTodo)
 }
 
 const toggleTodo = () => {
-  let todoid = $(event.target).attr('data-check-id');
+  let id = $(event.target).attr('data-check-id');
   if($(event.target).is(":checked")){
-    todosArray[todoid].isDone = true;
+    toggleFromServer(id, true)
     const randomNumber = Math.floor(Math.random() * 6);
     if(randomNumber === 0) {
       dispMsg('Ch-ch-ch-check');
@@ -36,17 +35,13 @@ const toggleTodo = () => {
       dispMsg('Touchdown')
     }
   } else if($(event.target).is(":not(:checked)")){
-    todosArray[todoid].isDone = false;
+    toggleFromServer(id, false)
   }
 }
 
 const deleteTodo = () => {
-  let todoid = +$(event.target).attr('data-id');
-  removeFromArray(todosArray, todoid)
-  todosRefresh()
-  // const target = $(ev.target)
-  // $(target).parent().remove();
-  dispMsg('Todo Deleted');
+  let id = +$(event.target).attr('data-id');
+  removeFromServer(id)
 }
 
 export { addTodo, toggleTodo, deleteTodo }

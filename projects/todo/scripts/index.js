@@ -5,7 +5,7 @@ import { todosRefresh } from './utils.js';
 import { addTodo, toggleTodo, deleteTodo } from './onclick.js';
 
 (() => {
-  todosRefresh()
+  todosRefresh();
 
   addTodoOnClick(addTodo);
 

@@ -1,15 +1,22 @@
 /* eslint-disable */
-
-import { todosArray } from "./database.js"
+const server = `http://localhost:3000/todos/`;
 
 const checkEmptyState = () => {
-  if (todosArray.length === 0) {
-    $('#todo-list').append(`
-      <div class="todo-element">
-        <p class="empty-state">¡All Done!</p>
-      </div>
-    `)
-  }
+  fetch(server)
+  .then(response => response.json())
+  .then(response => response.length)
+  .then
+    (
+      (response => {
+        if (response == 0) {
+          $('#todo-list').append(`
+            <div class="todo-element">
+              <p class="empty-state">¡All Done!</p>
+            </div>
+          `)
+        }
+      })
+    )
 }
 
 const dispMsg = (text) => {
@@ -19,18 +26,44 @@ const dispMsg = (text) => {
   }, 1000);
 }
 
-const addToArray = (array, element) => {
-  array.push(element)
+const addToServer = (element) => {
+  fetch(`${server}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(element)
+  })
+    .then(res => res.json())
+    .then(_=> {
+      todosRefresh()
+      $('#addtodo-input-text').val('');
+      $('#addtodo-input-date').val('');
+    })
 }
 
-const removeFromArray = (array, id) => {
-  array.splice(id, 1)
+const removeFromServer = (id) => {
+  fetch(`${server}${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  }).then(() => {
+    todosRefresh();
+    dispMsg('Todo Deleted');
+  }).catch((err) => alert(err.message));
 }
 
-const todosReorder = () => {
-  todosArray.forEach((todo, index) => {
-    todo.id = index;
-  });
+const toggleFromServer = (id, value) => {
+  fetch(`${server}${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      isDone: value
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
 }
 
 const appendTodoHtml = (todo, container) => {
@@ -39,7 +72,7 @@ const appendTodoHtml = (todo, container) => {
   <label class="btn" for="check-${todo.id}">
   <input class="todocheck" data-check-id="${todo.id}" id="check-${todo.id}" type="checkbox" ${todo.isDone ? 'checked' : ''}>
   <p class="todotext">${todo.name}</p><div class="date">${moment(todo.due).format('ddd, MMM Do')}</div>
-  <button class="delbutton" data-id="${todo.id}">Remove</button>
+  <button class="delbutton" type="button" data-id="${todo.id}">Remove</button>
   </label>
   </div>
   <hr>
@@ -47,12 +80,13 @@ const appendTodoHtml = (todo, container) => {
 };
 
 const todosRefresh = () => {
-  todosReorder()
   const $container = $('#todo-list');
   $container.empty();
-  todosArray.forEach(todo => {
-    appendTodoHtml(todo, $container)
-  });
+  
+  fetch(server)
+  .then(response => response.json())
+  .then(data => data.forEach(todo => {appendTodoHtml(todo, $container)}))
+
   checkEmptyState()
 };
 
@@ -62,14 +96,8 @@ const addNewTodoText = (text, element) => {
   } else if (text.length > 40) {
     dispMsg('Todo is too long')
   } else {
-    addToArray(todosArray, element)
-    todosRefresh()
-    // if ($newTodoText.length > 0) {
-    //   addTodoFn($newTodoText)
-    // }
-    $('#addtodo-input-text').val(''); // Clear text field
-    $('#addtodo-input-date').val(''); // Clear data field
+    addToServer(element) // Clear data field
   }
 }
 
-export { removeFromArray, todosRefresh, addNewTodoText, dispMsg }
+export { removeFromServer, todosRefresh, addNewTodoText, dispMsg, toggleFromServer }
