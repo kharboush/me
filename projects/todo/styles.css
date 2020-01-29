@@ -103,11 +103,11 @@ hr{
 .delbutton{
     float: right;
     background-color: white;
-    font-size: 14px;
+    font-size: 15px;
+    font-family: 'Quicksand', Helvetica, sans-serif;
     color:rgb(115, 0, 247);
     display: none;
     border: 0px;
-    margin: 0px;
     padding: 0px;
 }
 
