@@ -1,22 +1,16 @@
 /* eslint-disable */
 const server = `http://localhost:3000/todos/`;
 
-const checkEmptyState = () => {
-  fetch(server)
-  .then(response => response.json())
-  .then(response => response.length)
-  .then
-    (
-      (response => {
-        if (response == 0) {
-          $('#todo-list').append(`
-            <div class="todo-element">
-              <p class="empty-state">¡All Done!</p>
-            </div>
-          `)
-        }
-      })
-    )
+const checkEmptyState = async () => {
+  let promise = await fetch(server)
+  let json = await promise.json()
+  if (json.length == 0) {
+    $('#todo-list').append(`
+      <div class="todo-element">
+        <p class="empty-state">¡All Done!</p>
+      </div>
+    `)
+  }
 }
 
 const dispMsg = (text) => {
@@ -26,36 +20,32 @@ const dispMsg = (text) => {
   }, 1000);
 }
 
-const addToServer = (element) => {
-  fetch(`${server}`, {
+const addToServer = async (element) => {
+  await fetch(`${server}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(element)
   })
-    .then(res => res.json())
-    .then(_=> {
-      todosRefresh()
-      $('#addtodo-input-text').val('');
-      $('#addtodo-input-date').val('');
-    })
+  todosRefresh()
+  $('#addtodo-input-text').val('');
+  $('#addtodo-input-date').val('');
 }
 
-const removeFromServer = (id) => {
-  fetch(`${server}${id}`, {
+const removeFromServer = async (id) => {
+  await fetch(`${server}${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
     },
-  }).then(() => {
-    todosRefresh();
-    dispMsg('Todo Deleted');
-  }).catch((err) => alert(err.message));
+  })
+  todosRefresh()
+  dispMsg('Todo Deleted');
 }
 
-const toggleFromServer = (id, value) => {
-  fetch(`${server}${id}`, {
+const toggleFromServer = async (id, value) => {
+  let promise = await fetch(`${server}${id}`, {
     method: 'PUT',
     body: JSON.stringify({
       isDone: value
@@ -64,6 +54,9 @@ const toggleFromServer = (id, value) => {
       'Content-Type': 'application/json'
     }
   })
+  if (promise.status != 200) {
+    throw new Error (`Oopsies! Status code ${response.status}.`)
+  }
 }
 
 const appendTodoHtml = (todo, container) => {
@@ -79,13 +72,17 @@ const appendTodoHtml = (todo, container) => {
   `);
 };
 
-const todosRefresh = () => {
+const todosRefresh = async () => {
   const $container = $('#todo-list');
   $container.empty();
   
-  fetch(server)
-  .then(response => response.json())
-  .then(data => data.forEach(todo => {appendTodoHtml(todo, $container)}))
+  let promise = await fetch(server)
+  let json = await promise.json()
+  json.forEach(todo => {appendTodoHtml(todo, $container)})
+
+  if (promise.status != 200) {
+    throw new Error (`Oopsies! Status code ${response.status}.`)
+  }
 
   checkEmptyState()
 };
@@ -96,7 +93,7 @@ const addNewTodoText = (text, element) => {
   } else if (text.length > 40) {
     dispMsg('Todo is too long')
   } else {
-    addToServer(element) // Clear data field
+    addToServer(element)
   }
 }
 
