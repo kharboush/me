@@ -21,7 +21,6 @@ const searchGif = async () => {
 };
 
 export const searchPopulate = () => {
-  $('#gif-list').empty();
-  utils.populate(searchGif);
+  utils.refresh(searchGif);
   $(`#navsearch`).val('');
 };

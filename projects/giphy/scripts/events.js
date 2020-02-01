@@ -6,6 +6,10 @@ export const darkmodeClick = callback => {
   $('#darkmode').on('click', callback);
 };
 
+export const toggleviewClick = callback => {
+  $('#grid-toggle').on('click', callback);
+};
+
 export const hoverGif = callback => {
   $(document).on('mouseover', '.giphy-gif-grid', callback);
 };
@@ -37,3 +41,6 @@ export const enter = async callback => {
 
 export const onClickGif = callback =>
   $('#gif-list').on('click', '[gif-id]', callback);
+
+export const addFavourite = callback =>
+  $('#setFav').on('click', /* '[gif-id]', */ callback);

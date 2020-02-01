@@ -1,3 +1,5 @@
+import * as api from './api.js';
+
 export const populate = async (callback, number = 30, offset) => {
   const $container = $('#gif-list');
   const gifs = await callback(number, offset);
@@ -10,6 +12,11 @@ export const populate = async (callback, number = 30, offset) => {
   });
 };
 
+export const refresh = (args) => {
+  $('#gif-list').empty();
+  populate(args)
+}
+
 export const animate = ev => {
   ev.target.src = `https://media2.giphy.com/media/${ev.target.id}/200.gif`;
   setTimeout(() => {
@@ -17,7 +24,7 @@ export const animate = ev => {
   }, 8000);
 };
 
-const darkmodeFn = () => {
+export const darkmodeToggle = (() => {
   let dark;
   const toggle = () => {
     if (dark === true) {
@@ -41,6 +48,23 @@ const darkmodeFn = () => {
     }
   };
   return toggle;
-};
+})();
 
-export const darkmodeToggle = darkmodeFn();
+export const viewToggle = (() => {
+  let largegrid;
+  const toggle = () => {
+    console.log($('#gif-list'))
+    if (largegrid === true) {
+      refresh(api.fetchTrending)
+      $('#grid-toggle').attr('uk-icon', 'grid')
+      $('#gif-list').removeClass().addClass("uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m uk-grid uk-flex-top uk-flex-wrap-top")
+      largegrid = false;
+    } else {
+      refresh(api.fetchTrending)
+      $('#grid-toggle').attr('uk-icon', 'thumbnails')
+      $('#gif-list').removeClass().addClass("uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-grid uk-flex-top uk-flex-wrap-top")
+      largegrid = true;
+    }
+  };
+  return toggle;
+})();
