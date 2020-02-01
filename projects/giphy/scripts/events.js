@@ -1,0 +1,39 @@
+export const search = callback => {
+  $('#searchBtn').on('click', callback);
+};
+
+export const darkmodeClick = callback => {
+  $('#darkmode').on('click', callback);
+};
+
+export const hoverGif = callback => {
+  $(document).on('mouseover', '.giphy-gif-grid', callback);
+};
+
+export const scroll = callback => {
+  $(window).scroll(function() {
+    if ($(document).height() - $(this).height() === $(this).scrollTop()) {
+      callback();
+    }
+  });
+};
+
+// Listener for keystrokes
+export const enter = async callback => {
+  $('#navsearch').on('keypress', ev => {
+    if (ev.keyCode === 13) {
+      $('#navsearch').blur();
+      callback();
+    } // commen this part down to disable search on keystroke
+    else {
+      const input = $('#navsearch').val();
+      const last = ev.key;
+      $('#navsearch').val(input + last);
+      callback();
+      $('#navsearch').val(input);
+    }
+  });
+};
+
+export const onClickGif = callback =>
+  $('#gif-list').on('click', '[gif-id]', callback);

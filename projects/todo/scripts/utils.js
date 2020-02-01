@@ -64,7 +64,7 @@ const appendTodoHtml = (todo, container) => {
   <div id="todo-element-${todo.id}" class="todo-element">
   <label class="btn" for="check-${todo.id}">
   <input class="todocheck" data-check-id="${todo.id}" id="check-${todo.id}" type="checkbox" ${todo.isDone ? 'checked' : ''}>
-  <p class="todotext">${todo.name}</p><div class="date">${moment(todo.due).format('ddd, MMM Do')}</div>
+  <p class="todotext">${todo.name}</p><div class="date">${moment(todo.due).format('ddd, MMM Do')}</div><div class="hiddendate">${moment(todo.due).format('YYYY-MM-DD')}</div>
   <button class="delbutton" type="button" data-id="${todo.id}">Remove</button>
   </label>
   </div>

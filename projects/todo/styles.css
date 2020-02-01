@@ -182,6 +182,10 @@ hr{
     display:none;
 }
 
+.hiddendate {
+    display: none;
+}
+
 .empty-state {
     text-align: center;
     display: block;
