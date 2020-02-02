@@ -4,37 +4,47 @@ const scrollToTop = () => {
   $('html, body').animate({ scrollTop: 0 }, 'fast');
 };
 
-const animToggleFn = () => {
-  let anim
-  const animToggle = () => {
-    anim === true ? anim = false : anim === false ? anim = true : anim = false
-    const populate = async (callback, number = 30, offset) => {
-      const $container = $('#gif-list');
-      const gifs = await callback(number, offset);
-
-      if (anim === true) {
-        gifs.forEach(gif => {
-          $container.append(`
-            <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid">
-            <img class="uk-responsive-width uk-responsive-height" uk-toggle="target: #modal" style="width: 100%; border-radius: 8px;" id="${gif.id}" src="${gif.images.fixed_height.url}" alt="${gif.title}/>
-            </div>">
-          `);
-        });
-      } else {
-        gifs.forEach(gif => {
-          $container.append(`
-            <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid">
-            <img class="uk-responsive-width uk-responsive-height" uk-toggle="target: #modal" style="width: 100%; border-radius: 8px;" id="${gif.id}" src="${gif.images.fixed_height_still.url}" alt="${gif.title}/>
-            </div>">
-          `);
-        });
-      }
-    };
-    return populate
-  }
-  return animToggle
+const clearSearch = () => {
+  $('#navsearch').val('')
+  refresh(api.fetchTrending);
 }
 
+const throttleFn = () => {
+  let  timerId;
+  const  throttle  =  function (func, delay) {
+    if (timerId) {
+      return
+    }
+    timerId  = setTimeout(function () {
+      func()
+      timerId = undefined;
+    }, delay)
+  }
+  return throttle
+}
+const throttle = throttleFn()
+
+const animToggleFn = () => {
+  let anim = true;
+  const animаtionToggle = () => {
+    anim = !anim;
+    const populated = async (callback, number = 30, offset) => {
+      const $container = $('#gif-list');
+      const gifs = await callback(number, offset);
+      gifs.forEach(gif => {
+        $container.append(`
+            <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid">
+            <img class="uk-responsive-width uk-responsive-height" uk-toggle="target: #modal" style="width: 100%; border-radius:8px;"
+            id="${gif.id}" src="${
+          anim ? gif.images.fixed_height.url : gif.images.fixed_height_still.url
+        }" alt="${gif.title}/>
+            </div>">`);
+      });
+    };
+    return populated;
+  };
+  return animаtionToggle;
+};
 const animToggle = animToggleFn();
 const populate = animToggle();
 
@@ -103,4 +113,4 @@ const viewToggle = (() => {
   return toggle;
 })();
 
-export { darkmodeToggle, viewToggle, animToggle, refresh, populate, animate }
+export { darkmodeToggle, viewToggle, animToggle, clearSearch, throttle, refresh, populate, animate };
