@@ -13,6 +13,7 @@ export const populate = async (callback, number = 30, offset) => {
 };
 
 export const refresh = args => {
+  $("html, body").animate({ scrollTop: 0 }, "fast")
   $('#gif-list').empty();
   populate(args);
 };
