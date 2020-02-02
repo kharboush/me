@@ -16,7 +16,7 @@ export const hoverGif = callback => {
 
 export const scroll = callback => {
   $(window).scroll(function() {
-    if ($(document).height() - $(this).height() === $(this).scrollTop()) {
+    if($(window).scrollTop() + $(window).height() > $(document).height() - 600) {
       callback();
     }
   });
