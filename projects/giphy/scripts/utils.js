@@ -9,9 +9,9 @@ const clearSearch = () => {
   refresh(api.fetchTrending);
 }
 
-const throttleFn = () => {
+const throttle = (() => {
   let  timerId;
-  const  throttle  =  function (func, delay) {
+  const  throttleFn  =  function (func, delay) {
     if (timerId) {
       return
     }
@@ -20,11 +20,10 @@ const throttleFn = () => {
       timerId = undefined;
     }, delay)
   }
-  return throttle
-}
-const throttle = throttleFn()
+  return throttleFn
+})()
 
-const animToggleFn = () => {
+const animToggle = (() => {
   let anim = true;
   const animаtionToggle = () => {
     anim = !anim;
@@ -44,8 +43,7 @@ const animToggleFn = () => {
     return populated;
   };
   return animаtionToggle;
-};
-const animToggle = animToggleFn();
+})();
 const populate = animToggle();
 
 const refresh = args => {
