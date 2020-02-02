@@ -12,10 +12,10 @@ export const populate = async (callback, number = 30, offset) => {
   });
 };
 
-export const refresh = (args) => {
+export const refresh = args => {
   $('#gif-list').empty();
-  populate(args)
-}
+  populate(args);
+};
 
 export const animate = ev => {
   ev.target.src = `https://media2.giphy.com/media/${ev.target.id}/200.gif`;
@@ -53,16 +53,24 @@ export const darkmodeToggle = (() => {
 export const viewToggle = (() => {
   let largegrid;
   const toggle = () => {
-    console.log($('#gif-list'))
+    console.log($('#gif-list'));
     if (largegrid === true) {
-      refresh(api.fetchTrending)
-      $('#grid-toggle').attr('uk-icon', 'grid')
-      $('#gif-list').removeClass().addClass("uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m uk-grid uk-flex-top uk-flex-wrap-top")
+      refresh(api.fetchTrending);
+      $('#grid-toggle').attr('uk-icon', 'grid');
+      $('#gif-list')
+        .removeClass()
+        .addClass(
+          'uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m uk-grid uk-flex-top uk-flex-wrap-top'
+        );
       largegrid = false;
     } else {
-      refresh(api.fetchTrending)
-      $('#grid-toggle').attr('uk-icon', 'thumbnails')
-      $('#gif-list').removeClass().addClass("uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-grid uk-flex-top uk-flex-wrap-top")
+      refresh(api.fetchTrending);
+      $('#grid-toggle').attr('uk-icon', 'thumbnails');
+      $('#gif-list')
+        .removeClass()
+        .addClass(
+          'uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-grid uk-flex-top uk-flex-wrap-top'
+        );
       largegrid = true;
     }
   };

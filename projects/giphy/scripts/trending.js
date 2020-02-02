@@ -6,6 +6,7 @@ const populate = number => utils.populate(api.fetchTrending, number);
 
 const nextPage = (() => {
   let offsetNum = 30;
+
   const addCount = () => {
     offsetNum += 30;
     utils.populate(api.fetchTrending, undefined, offsetNum);

@@ -22,7 +22,7 @@ const showFavourites = async () => {
   const favIds = localStorage.getItem('favourites');
   try {
     const promise =
-      favIds.length <= 5
+      favIds === null
         ? await fetch(`${api.server}random?api_key=${api.key}&limit=30`)
         : await fetch(
             `${api.server}search?api_key=${api.key}&ids=${favIds}&limit=30`
@@ -34,12 +34,20 @@ const showFavourites = async () => {
   }
 };
 
-export const favPopulate = () => {
-  $('#favs_container').empty();
-  utils.populate(showFavourites);
-  if (localStorage.getItem('favourites') <= 5) {
+export const favPopulate = async () => {
+  $('#gif-list').empty();
+  $('h1')[0].innerHTML = 'Favorite(s)';
+  if (localStorage.getItem('favourites') === null) {
     alert(
       `You haven't picked favouite GIF(s) yet, so Faith picked one for you ;)`
     );
+    const gif = await showFavourites();
+    $('#gif-list').append(`
+    <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid">
+    <img class="uk-responsive-width uk-responsive-height" uk-toggle="target: #modal" style="width: 100%; border-radius: 8px;" id="${gif.id}" gif-id="${gif.id}" src="${gif.images.fixed_height_still.url}" alt="${gif.title}/>
+    </div>">
+  `);
+  } else {
+    utils.populate(showFavourites);
   }
 };

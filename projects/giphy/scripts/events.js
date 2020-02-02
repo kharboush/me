@@ -43,4 +43,10 @@ export const onClickGif = callback =>
   $('#gif-list').on('click', '[gif-id]', callback);
 
 export const addFavourite = callback =>
-  $('#setFav').on('click', /* '[gif-id]', */ callback);
+  $('button_addFavorite').on('click', /* '[gif-id]' */ callback);
+
+export const showFavorite = callback =>
+  $('#menu-favorites').on('click', callback);
+
+export const showTrending = callback =>
+  $('#menu-trending').on('click', callback);
