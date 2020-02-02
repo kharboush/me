@@ -1,31 +1,57 @@
 import * as api from './api.js';
 
-export const populate = async (callback, number = 30, offset) => {
-  const $container = $('#gif-list');
-  const gifs = await callback(number, offset);
-  gifs.forEach(gif => {
-    $container.append(`
-      <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid">
-      <img class="uk-responsive-width uk-responsive-height" uk-toggle="target: #modal" style="width: 100%; border-radius: 8px;" id="${gif.id}" gif-id="${gif.id}" src="${gif.images.fixed_height_still.url}" alt="${gif.title}/>
-      </div>">
-    `);
-  });
+const scrollToTop = () => {
+  $('html, body').animate({ scrollTop: 0 }, 'fast');
 };
 
-export const refresh = args => {
-  $("html, body").animate({ scrollTop: 0 }, "fast")
+const animToggleFn = () => {
+  let anim
+  const animToggle = () => {
+    anim === true ? anim = false : anim === false ? anim = true : anim = false
+    const populate = async (callback, number = 30, offset) => {
+      const $container = $('#gif-list');
+      const gifs = await callback(number, offset);
+
+      if (anim === true) {
+        gifs.forEach(gif => {
+          $container.append(`
+            <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid">
+            <img class="uk-responsive-width uk-responsive-height" uk-toggle="target: #modal" style="width: 100%; border-radius: 8px;" id="${gif.id}" src="${gif.images.fixed_height.url}" alt="${gif.title}/>
+            </div>">
+          `);
+        });
+      } else {
+        gifs.forEach(gif => {
+          $container.append(`
+            <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid">
+            <img class="uk-responsive-width uk-responsive-height" uk-toggle="target: #modal" style="width: 100%; border-radius: 8px;" id="${gif.id}" src="${gif.images.fixed_height_still.url}" alt="${gif.title}/>
+            </div>">
+          `);
+        });
+      }
+    };
+    return populate
+  }
+  return animToggle
+}
+
+const animToggle = animToggleFn();
+const populate = animToggle();
+
+const refresh = args => {
+  scrollToTop();
   $('#gif-list').empty();
   populate(args);
 };
 
-export const animate = ev => {
+const animate = ev => {
   ev.target.src = `https://media2.giphy.com/media/${ev.target.id}/200.gif`;
   setTimeout(() => {
     ev.target.src = `https://media2.giphy.com/media/${ev.target.id}/200_s.gif`;
   }, 8000);
 };
 
-export const darkmodeToggle = (() => {
+const darkmodeToggle = (() => {
   let dark;
   const toggle = () => {
     if (dark === true) {
@@ -51,10 +77,9 @@ export const darkmodeToggle = (() => {
   return toggle;
 })();
 
-export const viewToggle = (() => {
+const viewToggle = (() => {
   let largegrid;
   const toggle = () => {
-    console.log($('#gif-list'));
     if (largegrid === true) {
       refresh(api.fetchTrending);
       $('#grid-toggle').attr('uk-icon', 'grid');
@@ -77,3 +102,5 @@ export const viewToggle = (() => {
   };
   return toggle;
 })();
+
+export { darkmodeToggle, viewToggle, animToggle, refresh, populate, animate }

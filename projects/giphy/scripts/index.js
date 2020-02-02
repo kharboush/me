@@ -8,18 +8,20 @@ import { /* favouriteAdd, */ favPopulate } from './favourites.js';
 $(() => {
   // Initial view:
 
-  trending.refresh();
+  trending.populate();
   localStorage.clear();
   // Events to listen to:
   event.showTrending(trending.refresh);
   event.scroll(trending.nextPage);
-
+  
   event.search(searchPopulate);
   event.enter(searchPopulate);
-
+  event.logo(utils.scrollToTop);
+  
   event.hoverGif(utils.animate);
   event.darkmodeClick(utils.darkmodeToggle);
   event.toggleviewClick(utils.viewToggle);
+  event.animClick(utils.animToggle, trending.refresh);
 
   event.onClickGif(displayDetail);
 

@@ -36,11 +36,14 @@ const showFavourites = async () => {
 
 export const favPopulate = async () => {
   $('#gif-list').empty();
-  $('h1')[0].innerHTML = 'Favorite(s)';
   if (localStorage.getItem('favourites') === null) {
-    alert(
-      `You haven't picked favouite GIF(s) yet, so Faith picked one for you ;)`
-    );
+    $('h1')[0].innerHTML = 'Random';
+    (() => {
+      $(
+        '#alert-favorite'
+      )[0].innerHTML = `You haven't picked favouite GIF(s) yet, so Faith picked one for you ;)`;
+      setTimeout(() => ($('#alert-favorite')[0].innerHTML = ''), 5000);
+    })();
     const gif = await showFavourites();
     $('#gif-list').append(`
     <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid">
@@ -48,6 +51,7 @@ export const favPopulate = async () => {
     </div>">
   `);
   } else {
+    $('h1')[0].innerHTML = 'Favorite(s)';
     utils.populate(showFavourites);
   }
 };

@@ -1,3 +1,7 @@
+export const logo = callback => {
+  $('#logo').on('click', callback);
+};
+
 export const search = callback => {
   $('#searchBtn').on('click', callback);
 };
@@ -10,13 +14,20 @@ export const toggleviewClick = callback => {
   $('#grid-toggle').on('click', callback);
 };
 
+export const animClick = (callback1, callback2) => {
+  $('#anim-toggle').on('click', callback1).on('click', callback2);
+};
+
 export const hoverGif = callback => {
   $(document).on('mouseover', '.giphy-gif-grid', callback);
 };
 
 export const scroll = callback => {
-  $(window).scroll(function() {
-    if($(window).scrollTop() + $(window).height() > $(document).height() - 600) {
+  $(window).scroll(() => {
+    if (
+      $(window).scrollTop() + $(window).height() >
+      $(document).height() - 600
+    ) {
       callback();
     }
   });
@@ -40,7 +51,7 @@ export const enter = async callback => {
 };
 
 export const onClickGif = callback =>
-  $('#gif-list').on('click', '[gif-id]', callback);
+  $('#gif-list').on('click', '.giphy-gif-grid', callback);
 
 export const addFavourite = callback =>
   $('button_addFavorite').on('click', /* '[gif-id]' */ callback);

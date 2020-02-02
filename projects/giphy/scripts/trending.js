@@ -1,21 +1,27 @@
 import * as api from './api.js';
 import * as utils from './utils.js';
 
-const refresh = () => {
-  $('.uk-heading:first').text('Trending');
-  utils.refresh(api.fetchTrending)
-}
+// CHANGE THIS BETWEEN PAGES
+const heading = 'Trending'
+const fetch = api.fetchTrending;
 
-const populate = number => utils.populate(api.fetchTrending, number);
+// COPY THIS
+export const refresh = () => {
+  $('.uk-heading:first').text(`${heading}`);
+  return utils.refresh(fetch);
+};
 
-const nextPage = (() => {
+export const populate = () => {
+  $('.uk-heading:first').text(`${heading}`);
+  return utils.populate(fetch);
+};
+
+export const nextPage = (() => {
   let offsetNum = 30;
 
   const addCount = () => {
     offsetNum += 30;
-    utils.populate(api.fetchTrending, undefined, offsetNum);
+    utils.populate(fetch, undefined, offsetNum);
   };
   return addCount;
 })();
-
-export { populate, refresh, nextPage };

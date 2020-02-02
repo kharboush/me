@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="uk-background-default" lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,13 +15,23 @@
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script type="module" src="./scripts/index.js"></script>
 </head>
-<body class ="uk-background-default uk-dark">
-  <div class ="uk-background-default" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+<div id="alert-favorite" style="
+position: absolute;
+margin: 5%;
+top: 77%;
+left: 0;
+width: 90%;
+margin-top: -10px;
+line-height: 20px;
+text-align: center;""
+></div>
+<body class ="uk-dark">
+<div class ="uk-background-default">
   <nav uk-navbar>
     
     <div class="uk-navbar-left">
       <ul class="uk-navbar-nav uk-margin-left@m">
-        <li class="uk-active" id="menu-trending"><a href="#">TrueGiphy</a></li>
+        <li class="uk-active" id="logo"><a href="#">TrueGiphy</a></li>
       </ul>
       
     </div>
@@ -32,39 +42,58 @@
         <li><a uk-tooltip="Trending" uk-icon="bolt" type="button" id="menu-trending"></a></li>
         <li><a uk-tooltip="Favorites" uk-icon="heart" type="button" id="menu-favorites"></a></li>
         <li><a uk-tooltip="Uploads" uk-icon="cloud-upload" type="button" id="menu-uploads"></a></li>
-        <div class="uk-margin uk-visible@s">
+        <!-- <div class="uk-margin uk-visible@s">
           <form class="uk-search uk-search-default uk-margin-right uk-margin-left">
               <button class="uk-search-icon-flip" uk-search-icon id="searchBtn" type="button"></button>
-              <input id="navsearch" class="uk-search-input" type="search" placeholder="Search...">
+              <input class="uk-search-input" type="search" placeholder="Search..." style="border-radius: 8px">
           </form>
-        </div>
+        </div> -->
       </ul>
       
     </div>
   </nav>
 </div>
-
+<div class="uk-position-bottom-right uk-position-fixed uk-position-z-index">
+  <div class="uk-margin-large-right uk-margin-large-bottom">
+    <button class="uk-icon-button" uk-icon="refresh" uk-tooltip="Animate" type="button" id="anim-toggle"></button>
+    <button class="uk-icon-button uk-margin-small-left" uk-icon="grid" uk-tooltip="Change View" type="button" id="grid-toggle"></button>
+    <button class="uk-icon-button uk-margin-small-left uk-padding-remove-right" uk-tooltip="Dark Mode" uk-icon="nut" type="button" id="darkmode"></button>
+  </div>
+</div>
 <div class="uk-container uk-margin-small-top">
-  <nav class="uk-navbar" uk-navbar>
-    <div class="uk-navbar-left"><h1 class="uk-heading uk-margin-remove"></h1></div>
-    <div class="uk-navbar-right">
-      <ul class="uk-navbar-nav">
-      <li><a uk-icon="grid" uk-tooltip="Change View" type="button" id="grid-toggle"></a></li>
-      <li><a class="uk-padding-remove-right" uk-tooltip="Dark Mode" uk-icon="nut" type="button" id="darkmode"></a></li>
-      </ul>
-    </div>
-  </nav>
-  <div id="gif-list" class="uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m" uk-grid="masonry: true; parallax: 350">
+  <nav class="uk-background-default uk-navbar uk-margin-bottom" uk-navbar uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <div class="uk-navbar-left nav-overlay"><h1 class="uk-heading uk-margin-remove"></h1></div>
+    <div class="nav-overlay uk-navbar-right">
 
-    <!--CREATE THE MODAL - GIF DETAILS-->
-      <div id="modal" uk-modal>
-          <div class="uk-modal-dialog uk-modal-body" id="select-modal">
-              <!-- <h2 class="uk-modal-title"></h2> -->
-          </div>
+      <a class="uk-navbar-toggle uk-padding-remove" uk-search-icon uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"><span class="uk-margin-small-right">SEARCH</span></a>
+
+    </div>
+    <div class="nav-overlay uk-navbar-left uk-flex-1" hidden>
+
+      <div class="uk-navbar-item uk-width-expand uk-padding-remove">
+          <form class="uk-search uk-search-navbar uk-width-1-1">
+              <input id="navsearch" class="uk-search-input" type="search" placeholder="Search..." autofocus>
+          </form>
       </div>
 
+      <a class="uk-navbar-toggle uk-padding-remove" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"><span class="uk-margin-small-right">CLOSE</span></a>
+
+  </div>
+  </nav>
+  <div id="gif-list" class="uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m" uk-grid="masonry: true; parallax: 350">
+    
+    <!--CREATE THE MODAL - GIF DETAILS-->
+    <div id="modal" uk-modal>
+      <div class="uk-modal-dialog uk-modal-body" id="select-modal">
+        <!-- <h2 class="uk-modal-title"></h2> -->
+      </div>
+    </div>
+    
     <!-- THIS IS WHERE GIFS GO IN -->
   </div>
+</div>
+<div class="uk-flex uk-margin-xlarge-top">
+  <div class="uk-flex uk-margin-auto" uk-spinner="ratio: 3"></div>
 </div>
 </body>
 </html>

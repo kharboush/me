@@ -1,6 +1,4 @@
-import {
-  fetchGifDetails
-} from './api.js';
+import { fetchGifDetails } from './api.js';
 
 const showDetails = gifDetails => {
   const $modalContainer = $('#select-modal');
@@ -13,7 +11,7 @@ const showDetails = gifDetails => {
 };
 
 export const displayDetail = async ev => {
-  const id = $(ev.target).attr('gif-id');
+  const id = $(ev.target).attr('id');
 
   try {
     const gifDetails = await fetchGifDetails(id);
