@@ -1,25 +1,27 @@
 import * as api from './api.js';
 
 const scrollToTop = () => {
-  $('html, body').animate({
-    scrollTop: 0
-  }, 'fast');
+  $('html, body').animate({ scrollTop: 0 }, 'fast');
 };
 
+const clearSearch = () => {
+  $('#navsearch').val('')
+  refresh(api.fetchTrending);
+}
 
 const throttle = (() => {
-  let timerId;
-  const throttleFn = function(func, delay) {
+  let  timerId;
+  const  throttleFn  =  function (func, delay) {
     if (timerId) {
-      return;
+      return
     }
-    timerId = setTimeout(function() {
-      func();
+    timerId  = setTimeout(function () {
+      func()
       timerId = undefined;
-    }, delay);
-  };
+    }, delay)
+  }
   return throttleFn
-})();
+})()
 
 const animToggle = (() => {
   let anim = true;
@@ -30,14 +32,12 @@ const animToggle = (() => {
       const gifs = await callback(number, offset);
       gifs.forEach(gif => {
         $container.append(`
-            <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid details-overlay">
-              <div class="uk-inline" style="width: 100%">
-                <img class="uk-responsive-width uk-responsive-height" style="width: 100%; border-radius:8px;" id="${gif.id}" src="${anim ? gif.images.fixed_height.url : gif.images.fixed_height_still.url}" alt="${gif.title}" uk-tooltip="${gif.title}">
-                <div class="uk-overlay uk-overlay-primary uk-position-bottom display-none-overlay" 
-                overlay-id="${gif.id}">
-                </div>
-              </div>
-            </div>`);
+            <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid">
+            <img class="uk-responsive-width uk-responsive-height" uk-toggle="target: #modal" style="width: 100%; border-radius:8px;"
+            id="${gif.id}" src="${
+          anim ? gif.images.fixed_height.url : gif.images.fixed_height_still.url
+        }" alt="${gif.title}/>
+            </div>">`);
       });
     };
     return populated;
@@ -57,11 +57,6 @@ const animate = ev => {
   setTimeout(() => {
     ev.target.src = `https://media2.giphy.com/media/${ev.target.id}/200_s.gif`;
   }, 8000);
-};
-
-const clearSearch = () => {
-  $('#navsearch').val('');
-  refresh(api.fetchTrending);
 };
 
 const darkmodeToggle = (() => {
@@ -116,13 +111,4 @@ const viewToggle = (() => {
   return toggle;
 })();
 
-export {
-  darkmodeToggle,
-  viewToggle,
-  animToggle,
-  clearSearch,
-  throttle,
-  refresh,
-  populate,
-  animate,
-};
+export { darkmodeToggle, viewToggle, animToggle, clearSearch, throttle, refresh, populate, animate };

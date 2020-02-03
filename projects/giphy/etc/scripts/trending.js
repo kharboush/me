@@ -2,7 +2,7 @@ import * as api from './api.js';
 import * as utils from './utils.js';
 
 // CHANGE THIS BETWEEN PAGES
-const heading = 'Trending';
+const heading = 'Trending'
 const fetch = api.fetchTrending;
 
 // COPY THIS

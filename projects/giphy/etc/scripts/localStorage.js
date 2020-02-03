@@ -1,7 +1,7 @@
-export const favorites = ev => {
+export const favorites = (/* ev */) => {
   const storageFavs = localStorage.getItem('favourites');
   console.log(storageFavs);
-  const id = $(ev.target).attr('gif-id');
+  const id = /* $(ev.target).attr('gif-id') */ 1465;
   if (typeof Storage !== 'undefined') {
     if (storageFavs === null) {
       localStorage.setItem('favourites', `${id}`);

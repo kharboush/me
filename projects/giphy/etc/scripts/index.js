@@ -2,7 +2,7 @@ import * as trending from './trending.js';
 import * as utils from './utils.js';
 import * as event from './events.js';
 import { displayDetail } from './displayDetails.js';
-import { favorites } from './localStorage.js';
+// import { /* favourites, */ } from './localStorage.js';
 import * as populate from './populate.js';
 
 $(() => {
@@ -15,7 +15,7 @@ $(() => {
   event.scroll(trending.nextPage);
 
   event.search(populate.search);
-  event.searchClose(utils.clearSearch);
+  event.searchClose(utils.clearSearch)
   event.enter(populate.search);
   event.logo(utils.scrollToTop);
 
@@ -25,8 +25,7 @@ $(() => {
   event.animClick(utils.animToggle, trending.refresh);
 
   event.onClickGif(displayDetail);
-  // event.gifCoppy(copyToClipboard);
 
   event.showFavorite(populate.favorites);
-  event.addFavorite(favorites);
+  // event.addFavourite(favouriteAdd);
 });

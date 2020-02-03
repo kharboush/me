@@ -1,6 +1,6 @@
 // Click EVENTS
 // Click on logo
-import * as utils from './utils.js';
+import * as utils from "./utils.js"
 
 export const logo = callback => {
   $('#logo').on('click', callback);
@@ -35,20 +35,17 @@ export const animClick = (callback1, callback2) => {
 
 // Click on GIF
 export const onClickGif = callback =>
-  $('#gif-list').on('click', '.details-overlay', callback);
-
-// Coppy URL
-// export const gifCoppy = callback =>
-//   $('#gif-list').on('click', '.coppy-icon', callback);
+  $('#gif-list').on('click', '.giphy-gif-grid', callback);
 
 // Click on Add Favorites
-export const addFavorite = callback => $('#addFavorite').on('click', callback);
+export const addFavourite = callback =>
+  $('button_addFavorite').on('click', /* '[gif-id]' */ callback);
 
 // Click on Favorites tab
 export const showFavorite = callback =>
   $('#menu-favorites').on('click', callback);
 
-// Click on Trending tab
+// Click on Favorites tab
 export const showTrending = callback =>
   $('#menu-trending').on('click', callback);
 
