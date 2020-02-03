@@ -1,16 +1,34 @@
-export const favorites = ev => {
-  const storageFavs = localStorage.getItem('favourites');
-  console.log(storageFavs);
-  const id = $(ev.target).attr('gif-id');
+export const store = (ev, key) => {
+  const stored = localStorage.getItem(key);
+  const id = $(ev.target).attr('id');
   if (typeof Storage !== 'undefined') {
-    if (storageFavs === null) {
-      localStorage.setItem('favourites', `${id}`);
+    if (stored === null) {
+      localStorage.setItem(key, `${id}`);
     } else {
-      localStorage.setItem('favourites', [storageFavs, `${id}`]);
+      localStorage.setItem(key, [stored, `${id}`]);
     }
   } else {
     alert(
-      "Sorry, your browser does not support Web Storage, so we can't remember what are your favourites"
+      "Sorry, your browser does not support Web Storage, so we can't remember that"
     );
   }
 };
+
+export const del = (ev, key) => {
+  let stored = localStorage.getItem(key);
+  const id = $(ev.target).attr('id');
+  if (typeof Storage !== 'undefined') {
+    if (stored.includes(`${id},`)) {
+      stored = stored.replace(`${id},`, '');
+    } else {
+      stored = stored.replace(`${id}`, '');
+    }
+    localStorage.setItem(key, stored);
+  } else {
+    alert(
+      "Sorry, your browser does not support Web Storage, so we can't remember that"
+    );
+  }
+};
+
+// const id = $(ev.target).attr('id');

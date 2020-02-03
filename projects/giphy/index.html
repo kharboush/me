@@ -15,16 +15,6 @@
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script type="module" src="./scripts/index.js"></script>
 </head>
-<div id="alert-favorite" style="
-position: absolute;
-margin: 5%;
-top: 77%;
-left: 0;
-width: 90%;
-margin-top: -10px;
-line-height: 20px;
-text-align: center;""
-></div>
 <body class ="uk-dark">
 <div class ="uk-background-default" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
   <nav uk-navbar>
@@ -50,7 +40,7 @@ text-align: center;""
 <div class="uk-position-bottom-right uk-position-fixed uk-position-z-index">
   <div class="uk-margin-right uk-margin-bottom">
     <button class="uk-icon-button" uk-icon="refresh" uk-tooltip="Animate" type="button" id="anim-toggle"></button>
-    <button class="uk-icon-button uk-margin-small-left" uk-icon="grid" uk-tooltip="Change View" type="button" id="grid-toggle"></button>
+    <button class="uk-icon-button uk-margin-small-left" uk-icon="thumbnails" uk-tooltip="Change View" type="button" id="grid-toggle"></button>
     <button class="uk-icon-button uk-margin-small-left uk-padding-remove-right" uk-tooltip="Dark Mode" uk-icon="nut" type="button" id="darkmode"></button>
   </div>
 </div>
@@ -59,7 +49,7 @@ text-align: center;""
     <div class="uk-navbar-left nav-overlay"><h1 class="uk-heading uk-margin-remove"></h1></div>
     <div class="nav-overlay uk-navbar-right">
 
-      <a class="uk-navbar-toggle uk-padding-remove" uk-search-icon uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"><span class="uk-margin-small-right">SEARCH</span></a>
+      <a id="searchBtn" class="uk-navbar-toggle uk-padding-remove" uk-search-icon uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"><span class="uk-margin-small-right">SEARCH</span></a>
 
     </div>
     <div class="nav-overlay uk-navbar-left uk-flex-1" hidden>

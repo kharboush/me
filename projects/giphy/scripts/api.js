@@ -16,13 +16,27 @@ export const fetchGifDetails = async id => {
   return result.data;
 };
 
-export const fetchFavourites = async () => {
-  const favIds = localStorage.getItem('favourites');
+export const fetchFavorites = async () => {
+  const favIds = localStorage.getItem('favorites');
   try {
     const promise =
       favIds === null
-        ? await fetch(`${server}random?api_key=${key}&limit=30`)
-        : await fetch(`${server}search?api_key=${key}&ids=${favIds}&limit=30`);
+        ? await fetch(`${server}random?api_key=${key}`)
+        : await fetch(`${server}search?api_key=${key}&ids=${favIds}`);
+    const json = await promise.json();
+    return [json.data];
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+export const fetchUploads = async () => {
+  const uploadIds = localStorage.getItem('uploads');
+  try {
+    const promise =
+      uploadIds === null
+        ? await fetch(`${server}random?api_key=${key}`)
+        : await fetch(`${server}search?api_key=${key}&ids=${uploadIds}`);
     const json = await promise.json();
     return [json.data];
   } catch (error) {
@@ -36,15 +50,14 @@ export const fetchSearch = async () => {
     const promise = await fetch(
       `${server}search?api_key=${key}&q=${searchTerm}&limit=30`
     );
-    const json = await promise
-      .json()
-      // .then(
-      //   $('h1').text(
-      //     searchTerm
-      //       ? `Results for : '${searchTerm}'`
-      //       : `No input, no results :''(`
-      //   )
-      // );
+    const json = await promise.json();
+    // .then(
+    //   $('h1').text(
+    //     searchTerm
+    //       ? `Results for : '${searchTerm}'`
+    //       : `No input, no results :''(`
+    //   )
+    // );
     return json.data;
   } catch (error) {
     alert(error.message);

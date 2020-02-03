@@ -1,11 +1,13 @@
 import * as api from './api.js';
 
 const scrollToTop = () => {
-  $('html, body').animate({
-    scrollTop: 0
-  }, 'fast');
+  $('html, body').animate(
+    {
+      scrollTop: 0,
+    },
+    'fast'
+  );
 };
-
 
 const throttle = (() => {
   let timerId;
@@ -18,7 +20,7 @@ const throttle = (() => {
       timerId = undefined;
     }, delay);
   };
-  return throttleFn
+  return throttleFn;
 })();
 
 const animToggle = (() => {
@@ -32,7 +34,11 @@ const animToggle = (() => {
         $container.append(`
             <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid details-overlay">
               <div class="uk-inline" style="width: 100%">
-                <img class="uk-responsive-width uk-responsive-height" style="width: 100%; border-radius:8px;" id="${gif.id}" src="${anim ? gif.images.fixed_height.url : gif.images.fixed_height_still.url}" alt="${gif.title}" uk-tooltip="${gif.title}">
+                <img class="uk-responsive-width uk-responsive-height" style="width: 100%; border-radius:8px;" id="${
+                  gif.id
+                }" src="${
+          anim ? gif.images.fixed_height.url : gif.images.fixed_height_still.url
+        }" alt="${gif.title}" uk-tooltip="${gif.title}">
                 <div class="uk-overlay uk-overlay-primary uk-position-bottom display-none-overlay" 
                 overlay-id="${gif.id}">
                 </div>
@@ -61,7 +67,6 @@ const animate = ev => {
 
 const clearSearch = () => {
   $('#navsearch').val('');
-  refresh(api.fetchTrending);
 };
 
 const darkmodeToggle = (() => {
@@ -94,8 +99,7 @@ const viewToggle = (() => {
   let largegrid;
   const toggle = () => {
     if (largegrid === true) {
-      refresh(api.fetchTrending);
-      $('#grid-toggle').attr('uk-icon', 'grid');
+      $('#grid-toggle').attr('uk-icon', 'thumbnails');
       $('#gif-list')
         .removeClass()
         .addClass(
@@ -103,8 +107,7 @@ const viewToggle = (() => {
         );
       largegrid = false;
     } else {
-      refresh(api.fetchTrending);
-      $('#grid-toggle').attr('uk-icon', 'thumbnails');
+      $('#grid-toggle').attr('uk-icon', 'grid');
       $('#gif-list')
         .removeClass()
         .addClass(
