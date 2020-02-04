@@ -8,12 +8,8 @@ const fetch = api.fetchUploads;
 // COPY THIS
 export const refresh = () => {
   $('.uk-heading:first').text(`${heading}`);
-  utils.refresh(fetch);
-};
-
-export const populate = () => {
-  $('.uk-heading:first').text(`${heading}`);
-  return utils.populate(fetch);
+  $('#spinner').hide();
+  return utils.refresh(fetch);
 };
 
 export const nextPage = (() => {

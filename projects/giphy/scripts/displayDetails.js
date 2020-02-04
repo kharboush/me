@@ -4,16 +4,13 @@ const showDetails = async gifDetails => {
   const $overlayBottom = $(`[overlay-id=${gifDetails.id}]`);
   $overlayBottom.toggleClass('display-none-overlay');
   const storageFavs = localStorage.getItem('favourites');
-
+  const isAdded = (storageFavs === null || !storageFavs.includes(gifDetails.id))? '' : 'favorite-gif';
   $overlayBottom.html(`
     <div class="positions-bottom-icons">
-    ${
-      storageFavs === null || !storageFavs.includes(gifDetails.id)
-        ? `<span class="uk-icon-button uk-margin-small-left heart-icon" id="add-favorite" uk-icon="heart"></span>`
-        : `<span class="uk-icon-button uk-margin-small-left hashtag-icon" id="remove-favorite" uk-icon="hashtag"></span>`
-    }
-     <span class="uk-icon-button close-icon" id="delete"  uk-icon="close"></span>
-     <span class="uk-icon-button uk-margin-small-right coppy-icon" id="url" uk-icon="copy"></span>
+      <span class="uk-icon-button uk-margin-small-left heart-icon 
+      ${isAdded}" favourite-id="${gifDetails.id}" uk-icon="heart"></span>
+    
+     <span class="uk-icon-button uk-margin-small-right coppy-icon" coppy-id="${gifDetails.id}" uk-icon="copy"></span>
     </div>
       `);
 };
@@ -28,14 +25,26 @@ export const displayDetail = async ev => {
   }
 };
 
+// mouseleave event
+export const removeDetailsBottom = ev => {
+  const imageParent = $(ev.target).parent();
+  const overlay = imageParent.children('[overlay-id]');
+  overlay.addClass('display-none-overlay');
+};
+
 // $(ev.target).attr('id')
 // $(ev.target).attr('alt')
 // $(ev.target).attr('src')
 
-export const copyToClipboard = text => {
-  const $temp = $('<input>');
-  $('body').append($temp);
-  $temp.val(text).select();
-  document.execCommand('copy');
-  $temp.remove();
-};
+// export const copyToClipboard = url => {
+//   const $temp = $('<input>');
+//   $('body').append($temp);
+//   $temp.val(url).select();
+//   document.execCommand('copy');
+//   $temp.remove();
+// };
+
+// const getGifUrl = ev => {
+//
+//    copyToClipboard(url);
+// }

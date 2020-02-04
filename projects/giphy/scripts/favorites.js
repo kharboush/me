@@ -15,14 +15,10 @@ const randomMessage = () => {
 export const refresh = () => {
   $('.uk-heading:first').text(`${heading}`);
   if (localStorage.getItem('favorites') === null) {
-    utils.throttle(randomMessage, 4000);
+    utils.throttle(randomMessage, 1000);
   }
+  $('#spinner').hide();
   utils.refresh(fetch);
-};
-
-export const populate = () => {
-  $('.uk-heading:first').text(`${heading}`);
-  return utils.populate(fetch);
 };
 
 export const nextPage = (() => {

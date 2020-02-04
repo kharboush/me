@@ -8,12 +8,8 @@ const fetch = api.fetchTrending;
 // COPY THIS
 export const refresh = () => {
   $('.uk-heading:first').text(`${heading}`);
+  $('#spinner').show();
   return utils.refresh(fetch);
-};
-
-export const populate = () => {
-  $('.uk-heading:first').text(`${heading}`);
-  return utils.populate(fetch);
 };
 
 export const nextPage = (() => {

@@ -4,50 +4,53 @@ import * as uploads from './uploads.js';
 import * as search from './search.js';
 import * as utils from './utils.js';
 import * as event from './events.js';
-import { displayDetail } from './displayDetails.js';
+import { displayDetail, removeDetailsBottom } from './displayDetails.js';
 import * as storage from './localStorage.js';
 
-const trendingEvents = () => {
+const trendingPage = () => {
   event.canceler();
-  event.toggleviewClick(utils.viewToggle, trending.refresh);
-  event.animClick(utils.animToggle, trending.refresh);
-  event.scroll(trending.nextPage);
+  event.toggleViewClick(utils.viewToggle, trending.refresh);
+  event.toggleAnimClick(utils.animToggle, trending.refresh);
+  event.scrollToBottom(trending.nextPage);
+  trending.refresh();
 }; // INITIAL LOAD
 
-const searchEvents = () => {
+const favoritesPage = () => {
   event.canceler();
-  event.toggleviewClick(utils.viewToggle, search.refresh);
-  event.animClick(utils.animToggle, search.refresh);
-  event.scroll(search.nextPage);
+  event.toggleViewClick(utils.viewToggle, favorites.refresh);
+  event.toggleAnimClick(utils.animToggle, favorites.refresh);
+  event.scrollToBottom(favorites.nextPage);
+  favorites.refresh();
 };
 
-const favoritesEvents = () => {
+const uploadsPage = () => {
   event.canceler();
-  event.toggleviewClick(utils.viewToggle, favorites.refresh);
-  event.animClick(utils.animToggle, favorites.refresh);
-  event.scroll(favorites.nextPage);
+  event.toggleViewClick(utils.viewToggle, uploads.refresh);
+  event.toggleAnimClick(utils.animToggle, uploads.refresh);
+  event.scrollToBottom(uploads.nextPage);
+  uploads.refresh();
 };
 
-const uploadsEvents = () => {
+const searchPage = () => {
   event.canceler();
-  event.toggleviewClick(utils.viewToggle, uploads.refresh);
-  event.animClick(utils.animToggle, uploads.refresh);
-  event.scroll(uploads.nextPage);
+  event.toggleViewClick(utils.viewToggle, search.refresh);
+  event.toggleAnimClick(utils.animToggle, search.refresh);
+  event.scrollToBottom(search.nextPage);
+  search.refresh();
 };
 
 $(() => {
   // Initial view:
-  trendingEvents();
-  trending.populate();
+  trendingPage();
   // MENU EVENTS:
   event.logo(utils.scrollToTop);
-  event.showTrending(trendingEvents, trending.refresh);
-  event.showFavorite(favoritesEvents, favorites.refresh);
-  event.showSearch(searchEvents, search.refresh);
-  event.showUploads(uploadsEvents, uploads.refresh);
-  event.enter(search.refresh);
+  event.showTrending(trendingPage);
+  event.showFavorites(favoritesPage);
+  event.showUploads(uploadsPage);
+  event.showSearch(searchPage);
   // UNIVERSAL EVENTS
-  event.searchClose(utils.clearSearch, trendingEvents, trending.refresh);
+  event.enter(search.refresh);
+  event.searchClose(utils.clearSearch, trendingPage);
   event.hoverGif(utils.animate);
   event.darkmodeClick(utils.darkmodeToggle);
   event.onClickGif(displayDetail);
@@ -55,4 +58,7 @@ $(() => {
   event.removeFavorite(storage.del);
   event.deleted(storage.store);
   // event.gifCoppy(copyToClipboard);
+  event.mouseleaveGif(removeDetailsBottom);
+  // event.addFavorite(storage.favorites);
+  // event.gifCoppy(getGifUrl);
 });

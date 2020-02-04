@@ -1,22 +1,15 @@
-import * as api from './api.js';
-
 const scrollToTop = () => {
-  $('html, body').animate(
-    {
-      scrollTop: 0,
-    },
-    'fast'
-  );
+  $('html, body').animate({ scrollTop: 0 }, 200);
 };
 
 const throttle = (() => {
   let timerId;
-  const throttleFn = function(func, delay) {
+  const throttleFn = function(func, delay, ...args) {
     if (timerId) {
       return;
     }
     timerId = setTimeout(function() {
-      func();
+      func(...args);
       timerId = undefined;
     }, delay);
   };
@@ -33,7 +26,7 @@ const animToggle = (() => {
       gifs.forEach(gif => {
         $container.append(`
             <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid details-overlay">
-              <div class="uk-inline" style="width: 100%">
+              <div class="uk-inline remove-gif-overlay" style="width: 100%">
                 <img class="uk-responsive-width uk-responsive-height" style="width: 100%; border-radius:8px;" id="${
                   gif.id
                 }" src="${
@@ -57,7 +50,6 @@ const refresh = args => {
   $('#gif-list').empty();
   populate(args);
 };
-
 const animate = ev => {
   ev.target.src = `https://media2.giphy.com/media/${ev.target.id}/200.gif`;
   setTimeout(() => {

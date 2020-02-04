@@ -1,23 +1,26 @@
-// Click EVENTS
-// Click on logo
 import * as utils from './utils.js';
+
+const toggleSearchBar = () => {
+  $('#searchhider').trigger('click');
+};
 
 export const canceler = () => {
   $('#anim-toggle').off();
   $('#grid-toggle').off();
+  $('.menu').off('click', toggleSearchBar);
   $(window).off();
 };
 
+// Click on logo
 export const logo = callback => {
   $('#logo').on('click', callback);
 };
 
 // Click on Search close button
-export const searchClose = (callback1, callback2, callback3) => {
+export const searchClose = (callback1, callback2) => {
   $('#searchCloseBtn')
     .on('click', callback1)
-    .on('click', callback2)
-    .on('click', callback3);
+    .on('click', callback2);
 };
 
 // Click on Dark Mode button
@@ -25,15 +28,16 @@ export const darkmodeClick = callback => {
   $('#darkmode').on('click', callback);
 };
 
+// Click EVENTS
 // Click on Grid button
-export const toggleviewClick = (callback1, callback2) => {
+export const toggleViewClick = (callback1, callback2) => {
   $('#grid-toggle')
     .on('click', callback1)
     .on('click', callback2);
 };
 
 // Click on Animate button
-export const animClick = (callback1, callback2) => {
+export const toggleAnimClick = (callback1, callback2) => {
   $('#anim-toggle')
     .on('click', callback1)
     .on('click', callback2);
@@ -41,7 +45,12 @@ export const animClick = (callback1, callback2) => {
 
 // Click on GIF
 export const onClickGif = callback =>
-  $('#gif-list').on('click', '.details-overlay', callback);
+  $('#gif-list').on('click', 'img', callback);
+
+// Mouseleave GIF
+export const mouseleaveGif = callback => {
+  $('#gif-list').on('mouseleave', '.remove-gif-overlay', callback);
+};
 
 // Coppy URL
 // export const gifCoppy = callback =>
@@ -53,35 +62,32 @@ export const addFavorite = callback =>
 
 // Click on Remove Favorites
 export const removeFavorite = callback =>
-  $(`#add-favorite`).on('click', ev => callback(ev, 'favorites'));
+  $(`#remove-favorite`).on('click', ev => callback(ev, 'favorites'));
 
 // Click on Delete
 export const deleted = callback =>
   $(`#delete`).on('click', ev => callback(ev, 'deleted'));
+// $(document).on('click', '.heart-icon', callback);
 
 // Click on Trending tab
-export const showTrending = (callback1, callback2) =>
-  $('#menu-trending')
-    .on('click', callback1)
-    .on('click', callback2);
+export const showTrending = callback =>
+  $('#menu-trending').on('click', callback);
 
 // Click on Favorites tab
-export const showFavorite = (callback1, callback2) =>
-  $('#menu-favorites')
-    .on('click', callback1)
-    .on('click', callback2);
+export const showFavorites = callback =>
+  $('#menu-favorites').on('click', callback);
 
 // Click on Uploads tab
-export const showUploads = (callback1, callback2) =>
-  $('#menu-uploads')
-    .on('click', callback1)
-    .on('click', callback2);
+export const showUploads = callback => $('#menu-uploads').on('click', callback);
 
 // Click on Search button
-export const showSearch = (callback1, callback2) =>
+export const showSearch = callback => {
   $('#searchBtn')
-    .on('click', callback1)
-    .on('click', callback2);
+    .on('click', callback)
+    .on('click', () => {
+      $(`.menu`).on('click', toggleSearchBar);
+    });
+};
 
 // Other Interaction EVENTS
 // Hover on GIF
@@ -90,7 +96,7 @@ export const hoverGif = callback => {
 };
 
 // Scroll
-export const scroll = callback => {
+export const scrollToBottom = callback => {
   $(window).scroll(() => {
     if (
       $(window).scrollTop() + $(window).height() >
