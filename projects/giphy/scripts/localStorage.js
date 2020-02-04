@@ -1,11 +1,11 @@
-export const store = (ev, key) => {
+export const store = (id, key) => {
   const stored = localStorage.getItem(key);
-  const id = $(ev.target).attr('id');
+  const storedId = id;
   if (typeof Storage !== 'undefined') {
     if (stored === null) {
-      localStorage.setItem(key, `${id}`);
+      localStorage.setItem(key, `${storedId}`);
     } else {
-      localStorage.setItem(key, [stored, `${id}`]);
+      localStorage.setItem(key, [stored, `${storedId}`]);
     }
   } else {
     alert(
@@ -14,14 +14,14 @@ export const store = (ev, key) => {
   }
 };
 
-export const del = (ev, key) => {
+export const del = (id, key) => {
   let stored = localStorage.getItem(key);
-  const id = $(ev.target).attr('id');
+  const storedId = id;
   if (typeof Storage !== 'undefined') {
-    if (stored.includes(`${id},`)) {
-      stored = stored.replace(`${id},`, '');
+    if (stored.includes(`${storedId},`)) {
+      stored = stored.replace(`${storedId},`, '');
     } else {
-      stored = stored.replace(`${id}`, '');
+      stored = stored.replace(`${storedId}`, '');
     }
     localStorage.setItem(key, stored);
   } else {

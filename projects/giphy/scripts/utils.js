@@ -25,24 +25,46 @@ const animToggle = (() => {
       const gifs = await callback(number, offset);
       gifs.forEach(gif => {
         $container.append(`
-            <div uk-scrollspy="cls:uk-animation-fade" class="uk-card uk-flex uk-flex-center uk-flex-middle giphy-gif-grid details-overlay">
-              <div class="uk-inline remove-gif-overlay" style="width: 100%">
-                <img class="uk-responsive-width uk-responsive-height" style="width: 100%; border-radius:8px;" id="${
-                  gif.id
-                }" src="${
+        <div uk-scrollspy="cls:uk-animation-fade" style="position:relative" class="giphy-gif-grid details-overlay">
+        <img class="uk-responsive-width uk-responsive-height" style="width: 100%; border-radius:8px; position:relative" id="${
+          gif.id
+        }" src="${
           anim ? gif.images.fixed_height.url : gif.images.fixed_height_still.url
-        }" alt="${gif.title}" uk-tooltip="${gif.title}">
-                <div class="uk-overlay uk-overlay-primary uk-position-bottom display-none-overlay" 
-                overlay-id="${gif.id}">
-                </div>
-              </div>
-            </div>`);
+        }" alt="${gif.title}" uk-tooltip="${gif.title}" href="#modal-center-${
+          gif.id
+        }" uk-toggle>
+        
+        <div id="modal-center-${gif.id}" class="uk-flex-top" uk-modal>
+        <div modal-id="modal-center-${
+          gif.id
+        }" class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-padding-remove">
+          <img class="uk-responsive-width uk-responsive-height" style="width: 100%; border-radius:8px; position:relative" modal-id="${
+            gif.id
+          }" src="${gif.images.fixed_height.url}" alt="${gif.title}">
+          <p>${gif.title}</p>
+
+          <div></div>
+          <span type="button" class="favorite-button uk-icon-button uk-margin-small-left heart-icon" favorite-id="${
+            gif.id
+          }" id="add-favorite" uk-tooltip="Favorite" uk-icon="heart"></span>
+    
+          <span type="button" class="uk-icon-button uk-margin-small-right coppy-icon" coppy-id="${
+            gif.id
+          }" uk-icon="copy" uk-tooltip="Copy URL" gif-url="${
+          gif.images.original.url
+        }"></span>
+        </div>
+        </div>
+
+        </div>
+        `);
       });
     };
     return populated;
   };
   return animаtionToggle;
 })();
+
 const populate = animToggle();
 
 const refresh = args => {

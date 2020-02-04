@@ -9,15 +9,16 @@ const fetch = api.fetchUploads;
 export const refresh = () => {
   $('.uk-heading:first').text(`${heading}`);
   $('#spinner').hide();
+  $('#gif-list').html('<p>asdasdasd</p>');
   return utils.refresh(fetch);
 };
 
 export const nextPage = (() => {
-  let offsetNum = 30;
+  const offsetNum = 30;
 
   const addCount = () => {
-    offsetNum += 30;
-    utils.populate(fetch, undefined, offsetNum);
+    // offsetNum += 30;
+    // utils.populate(fetch, undefined, offsetNum);
   };
   return addCount;
 })();

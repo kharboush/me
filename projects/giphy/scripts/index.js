@@ -4,7 +4,7 @@ import * as uploads from './uploads.js';
 import * as search from './search.js';
 import * as utils from './utils.js';
 import * as event from './events.js';
-import { displayDetail, removeDetailsBottom } from './displayDetails.js';
+import * as details from './displayDetails.js';
 import * as storage from './localStorage.js';
 
 const trendingPage = () => {
@@ -53,12 +53,12 @@ $(() => {
   event.searchClose(utils.clearSearch, trendingPage);
   event.hoverGif(utils.animate);
   event.darkmodeClick(utils.darkmodeToggle);
-  event.onClickGif(displayDetail);
-  event.addFavorite(storage.store);
-  event.removeFavorite(storage.del);
-  event.deleted(storage.store);
-  // event.gifCoppy(copyToClipboard);
-  event.mouseleaveGif(removeDetailsBottom);
+  event.onClickGif(details.showDetails);
+  event.favoriteButton(details.favToggle);
+  // event.mouseleaveGif(removeDetailsBottom);
+  // event.deleted(storage.store);
+  // event.modalFavoriteButton(details.favoriteButtonToggle)
+  // event.mouseleaveGif(removeDetailsBottom);
   // event.addFavorite(storage.favorites);
-  // event.gifCoppy(getGifUrl);
+  event.gifCopy(details.getGifUrl);
 });

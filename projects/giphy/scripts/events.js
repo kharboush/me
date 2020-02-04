@@ -45,29 +45,24 @@ export const toggleAnimClick = (callback1, callback2) => {
 
 // Click on GIF
 export const onClickGif = callback =>
-  $('#gif-list').on('click', 'img', callback);
+  $('#gif-list').on('click', 'img', ev => {
+    callback(ev);
+  });
 
 // Mouseleave GIF
 export const mouseleaveGif = callback => {
   $('#gif-list').on('mouseleave', '.remove-gif-overlay', callback);
 };
 
-// Coppy URL
-// export const gifCoppy = callback =>
-//   $('#gif-list').on('click', '.coppy-icon', callback);
+// Copy URL
+export const gifCopy = callback =>
+  $(document).on('click', '.coppy-icon', callback);
 
-// Click on Add Favorites
-export const addFavorite = callback =>
-  $(`#add-favorite`).on('click', ev => callback(ev, 'favorites'));
-
-// Click on Remove Favorites
-export const removeFavorite = callback =>
-  $(`#remove-favorite`).on('click', ev => callback(ev, 'favorites'));
-
-// Click on Delete
-export const deleted = callback =>
-  $(`#delete`).on('click', ev => callback(ev, 'deleted'));
-// $(document).on('click', '.heart-icon', callback);
+// Click on Favorites
+export const favoriteButton = callback =>
+  $(document).on('click', `.favorite-button`, ev => {
+    callback(ev);
+  });
 
 // Click on Trending tab
 export const showTrending = callback =>

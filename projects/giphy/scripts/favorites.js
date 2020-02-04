@@ -22,11 +22,11 @@ export const refresh = () => {
 };
 
 export const nextPage = (() => {
-  let offsetNum = 30;
+  const offsetNum = 30;
 
   const addCount = () => {
-    offsetNum += 30;
-    utils.populate(fetch, undefined, offsetNum);
+    // offsetNum += 30;
+    // utils.populate(fetch, undefined, offsetNum);
   };
   return addCount;
 })();
