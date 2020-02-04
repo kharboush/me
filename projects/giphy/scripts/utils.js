@@ -25,38 +25,46 @@ const animToggle = (() => {
       const gifs = await callback(number, offset);
       gifs.forEach(gif => {
         $container.append(`
-        <div uk-scrollspy="cls:uk-animation-fade" style="position:relative" class="giphy-gif-grid details-overlay">
-        <img class="uk-responsive-width uk-responsive-height" style="width: 100%; border-radius:8px; position:relative" id="${
-          gif.id
-        }" src="${
-          anim ? gif.images.fixed_height.url : gif.images.fixed_height_still.url
-        }" alt="${gif.title}" uk-tooltip="${gif.title}" href="#modal-center-${
-          gif.id
-        }" uk-toggle>
-        
-        <div id="modal-center-${gif.id}" class="uk-flex-top" uk-modal>
-        <div modal-id="modal-center-${
-          gif.id
-        }" class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-padding-remove">
-          <img class="uk-responsive-width uk-responsive-height" style="width: 100%; border-radius:8px; position:relative" modal-id="${
-            gif.id
-          }" src="${gif.images.fixed_height.url}" alt="${gif.title}">
-          <p>${gif.title}</p>
-
-          <div></div>
-          <span type="button" class="favorite-button uk-icon-button uk-margin-small-left heart-icon" favorite-id="${
-            gif.id
-          }" id="add-favorite" uk-tooltip="Favorite" uk-icon="heart"></span>
-    
-          <span type="button" class="uk-icon-button uk-margin-small-right coppy-icon" coppy-id="${
-            gif.id
-          }" uk-icon="copy" uk-tooltip="Copy URL" gif-url="${
-          gif.images.original.url
-        }"></span>
+          <div uk-scrollspy="cls:uk-animation-fade"
+            style="position:relative"
+            class="giphy-gif-grid details-overlay">
+            <img class="uk-responsive-width uk-responsive-height"
+              style="width: 100%; border-radius:8px; position:relative"
+              id="${gif.id}" src="${anim ? gif.images.fixed_height.url : gif.images.fixed_height_still.url}" 
+              alt="${gif.title}" uk-tooltip="${gif.title}"
+              href="#modal-center-${gif.id}"
+              uk-toggle
+            >
+            <div id="modal-center-${gif.id}" class="uk-flex-top" uk-modal>
+            <div modal-id="modal-center-${gif.id}"
+              class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-padding-remove"
+              style="border-radius:8px;"
+            >
+                <img class="uk-responsive-width uk-responsive-height"
+                  style="width: 100%; border-radius:8px; position:relative" 
+                  modal-id="${gif.id}" 
+                  src="${gif.images.fixed_height.url}"
+                  alt="${gif.title}"
+                >
+                <div class="uk-margin uk-margin-bottom uk-margin-left uk-margin-right">
+                    <p>${gif.title}</p>
+                    <div class="uk-flex uk-flex-right">
+                        <span type="button"
+                          class="favorite-button uk-icon-button uk-margin-small-right heart-icon"
+                          favorite-id="${gif.id}"
+                          id="add-favorite" uk-tooltip="Favorite" uk-icon="heart">
+                        </span>
+                        <span type="button"
+                          class="uk-icon-button coppy-icon"
+                          copy-id="${gif.id}"
+                          uk-icon="copy" uk-tooltip="Copy URL"
+                          gif-url="${gif.images.original.url}">
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
-        </div>
-
-        </div>
+    </div>
         `);
       });
     };
