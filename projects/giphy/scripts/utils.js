@@ -70,7 +70,7 @@ const animToggle = (() => {
           <button type="button" class="uk-icon-button uk-icon favorite-button heart-icon" uk-icon="heart" favorite-id="${
             gif.id
           }" id="add-favorite" uk-tooltip="Favorite"></button>
-          <button type="button" class="uk-icon-button coppy-icon" coppy-id="${
+          <button type="button" class="uk-icon-button coppy-icon uk-margin-small-left" coppy-id="${
             gif.id
           } " uk-icon="copy" uk-tooltip="Copy URL" gif-url="${
           gif.images.original.url
