@@ -2,6 +2,10 @@
   display: none;
 }
 
+* {
+  font-family: 'Asap', sans-serif!important;
+}
+
 #gif-list .display-none-overlay {
   display: none;
 }
