@@ -50,9 +50,9 @@ export const onClickGif = callback =>
   });
 
 // Mouseleave GIF
-export const mouseleaveGif = callback => {
-  $('#gif-list').on('mouseleave', '.remove-gif-overlay', callback);
-};
+// export const mouseleaveGif = callback => {
+//   $('#gif-list').on('mouseleave', '.remove-gif-overlay', callback);
+// };
 
 // Copy URL
 export const gifCopy = callback =>
@@ -78,9 +78,9 @@ export const showUploads = callback => $('#menu-uploads').on('click', callback);
 // Upload GIF
 export const onUpload = callback => $('#upload-input').change(callback);
 
-// Upload GIF click on Button
-export const onUploadButton = callback =>
-  $(document).on('click', '#upload-button', callback);
+// Upload GIF click on input-card
+export const onUploadCard = callback =>
+  $(document).on('click', '#upload-input-card', callback);
 
 // Click on Search button
 export const showSearch = callback => {
@@ -109,6 +109,10 @@ export const scrollToBottom = callback => {
   });
 };
 
+export const modalImgDblClick = callback => {
+  $(document).on('dblclick', '.modal-image', callback);
+};
+
 // Listener for keystrokes on Search field
 export const keystroke = callback => {
   $('#navsearch').on('keypress', ev => {
@@ -119,7 +123,7 @@ export const keystroke = callback => {
     if (ev.keyCode === 13) {
       ev.preventDefault();
     } else {
-      // commen this part down to disable search on keystroke
+      // comment this part out to disable search on keystroke
       const input = $('#navsearch').val();
       const last = ev.key;
       $('#navsearch').val(input + last);
@@ -132,11 +136,5 @@ export const keystroke = callback => {
 export const paste = callback => {
   $('#navsearch').on('paste', () => {
     callback();
-  });
-};
-
-export const modalImgDoubleClick = callback => {
-  $(document).on('dblclick', '.modal-image', () => {
-    $('.favorite-button').trigger('click');
   });
 };

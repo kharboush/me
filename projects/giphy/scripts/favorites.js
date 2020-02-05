@@ -15,6 +15,7 @@ const randomMessage = () => {
 // COPY THIS
 export const refresh = () => {
   $('.uk-heading:first').text(`${heading}`);
+  $('#gif-list').attr('uk-grid', 'masonry: true; parallax: 0');
   if (localStorage.getItem('favorites') === null) {
     utils.throttle(randomMessage, 1000);
   }

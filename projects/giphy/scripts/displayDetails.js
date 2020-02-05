@@ -1,19 +1,16 @@
 import * as storage from './localStorage.js';
 
-export const favToggle = ev => {
-  const gifId = $(ev.target).attr('favorite-id');
-  // console.log($(ev.target).attr('favorite-id'));
-  const storageFavs = localStorage.getItem('favorites');
-  const favorite = !(storageFavs === null || !storageFavs.includes(gifId));
-  if (favorite === false) {
-    $('.favorite-button').attr('id', 'remove-favorite');
-    $('.favorite-button').addClass('favorite-gif');
-    storage.store(gifId, 'favorites');
-  } else {
-    $('.favorite-button').attr('id', 'add-favorite');
-    $('.favorite-button').removeClass('favorite-gif');
-    storage.del(gifId, 'favorites');
-  }
+export const copyToClipboard = url => {
+  const $temp = $('<input>');
+  $('body').append($temp);
+  $temp.val(url).select();
+  document.execCommand('copy');
+  $temp.remove();
+};
+
+export const getGifUrl = ev => {
+  const gifUrl = $(ev.target).attr('gif-url');
+  copyToClipboard(gifUrl);
 };
 
 export const showDetails = ev => {
@@ -29,18 +26,25 @@ export const showDetails = ev => {
   }
 };
 
-export const copyToClipboard = url => {
-  const $temp = $('<input>');
-  $('body').append($temp);
-  $temp.val(url).select();
-  document.execCommand('copy');
-  $temp.remove();
+export const favToggle = ev => {
+  const gifId = $(ev.target).attr('favorite-id');
+  // console.log($(ev.target).attr('favorite-id'));
+  const storageFavs = localStorage.getItem('favorites');
+  const favorite = !(storageFavs === null || !storageFavs.includes(gifId));
+  if (favorite === false) {
+    $('.favorite-button').addClass('favorite-gif');
+    $('.favorite-button').attr('id', 'remove-favorite');
+    storage.store(gifId, 'favorites');
+  } else {
+    $('.favorite-button').removeClass('favorite-gif');
+    $('.favorite-button').attr('id', 'add-favorite');
+    storage.del(gifId, 'favorites');
+  }
 };
 
-export const getGifUrl = ev => {
-  const gifUrl = $(ev.target).attr('gif-url');
-  console.log($(ev.target).attr('gif-url'));
-  copyToClipboard(gifUrl);
+export const clickFavBtn = () => {
+  const gifId = $(event.target).attr('modal-id');
+  $(`[favorite-id=${gifId}]`).trigger('click');
 };
 
 // export const favoriteButtonToggle = ev => {

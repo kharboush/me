@@ -8,6 +8,7 @@ const fetch = api.fetchTrending;
 // COPY THIS
 export const refresh = () => {
   $('.uk-heading:first').text(`${heading}`);
+  $('#gif-list').attr('uk-grid', 'masonry: true; parallax: 200');
   $('#spinner').show();
   return utils.refresh(fetch);
 };

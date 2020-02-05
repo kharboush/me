@@ -53,7 +53,7 @@ const animToggle = (() => {
         ).attr('class')} modal">
           <img class="uk-responsive-width uk-responsive-height modal-image" modal-id="${
             gif.id
-          } " src="${gif.images.fixed_height.url}" alt="${gif.title}">
+          }" src="${gif.images.fixed_height.url}" alt="${gif.title}">
          
          
          <div class="uk-container uk-padding-small">

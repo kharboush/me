@@ -5,9 +5,7 @@ import * as search from './search.js';
 import * as utils from './utils.js';
 import * as event from './events.js';
 import * as details from './displayDetails.js';
-import { loadUserPrefs, store } from './localStorage.js';
-
-import * as uploadGif from './uploadGif.js';
+import { loadUserPrefs } from './localStorage.js';
 
 const trendingPage = () => {
   event.canceler();
@@ -50,21 +48,25 @@ $(() => {
   event.showTrending(trendingPage);
   event.showFavorites(favoritesPage);
   event.showUploads(uploadsPage);
+  // SEARCH EVENTS
   event.showSearch(searchPage);
-  event.modalImgDoubleClick(event.likeImg);
-  // UNIVERSAL EVENTS
   event.keystroke(search.refresh);
   event.paste(search.refresh);
   event.searchClose(utils.clearSearch, trendingPage);
-  event.hoverGif(utils.animate);
+  // UNIVERSAL EVENTS
+  event.onUpload(uploads.upload);
   event.darkmodeClick(utils.darkmodeToggle);
+  event.hoverGif(utils.animate);
   event.onClickGif(details.showDetails);
+  // GIF DETAILS
   event.favoriteButton(details.favToggle);
+  event.modalImgDblClick(details.clickFavBtn);
   event.gifCopy(details.getGifUrl);
   event.onUpload(uploads.upload);
-  event.onUploadButton(uploads.clickOnUploas);
+  event.onUploadCard(uploads.clickOnUploads);
 });
 
+// event.onUploadButton(uploads.clickOnUpload);
 // event.mouseleaveGif(removeDetailsBottom);
 // event.deleted(storage.store);
 // event.modalFavoriteButton(details.favoriteButtonToggle)
