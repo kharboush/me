@@ -79,7 +79,8 @@ export const showUploads = callback => $('#menu-uploads').on('click', callback);
 export const onUpload = callback => $('#upload-input').change(callback);
 
 // Upload GIF click on Button
-export const onUploadButton = callback => $(document).on('click', '#upload-button', callback);
+export const onUploadButton = callback =>
+  $(document).on('click', '#upload-button', callback);
 
 // Click on Search button
 export const showSearch = callback => {
@@ -131,5 +132,11 @@ export const keystroke = callback => {
 export const paste = callback => {
   $('#navsearch').on('paste', () => {
     callback();
+  });
+};
+
+export const modalImgDoubleClick = callback => {
+  $(document).on('dblclick', '.modal-image', () => {
+    $('.favorite-button').trigger('click');
   });
 };

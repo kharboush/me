@@ -2,7 +2,7 @@ import * as storage from './localStorage.js';
 
 export const favToggle = ev => {
   const gifId = $(ev.target).attr('favorite-id');
-  console.log($(ev.target).attr('favorite-id'));
+  // console.log($(ev.target).attr('favorite-id'));
   const storageFavs = localStorage.getItem('favorites');
   const favorite = !(storageFavs === null || !storageFavs.includes(gifId));
   if (favorite === false) {

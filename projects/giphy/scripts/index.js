@@ -5,8 +5,8 @@ import * as search from './search.js';
 import * as utils from './utils.js';
 import * as event from './events.js';
 import * as details from './displayDetails.js';
-import { loadUserPrefs } from './localStorage.js';
-import { store } from './localStorage.js';
+import { loadUserPrefs, store } from './localStorage.js';
+
 import * as uploadGif from './uploadGif.js';
 
 const trendingPage = () => {
@@ -51,6 +51,7 @@ $(() => {
   event.showFavorites(favoritesPage);
   event.showUploads(uploadsPage);
   event.showSearch(searchPage);
+  event.modalImgDoubleClick(event.likeImg);
   // UNIVERSAL EVENTS
   event.keystroke(search.refresh);
   event.paste(search.refresh);
