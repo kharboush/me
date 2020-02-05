@@ -29,14 +29,19 @@ svg {
   pointer-events: none;
 }
 
+.giphy-gif {
+  width: 100%;
+  border-radius:8px;
+}
+
 .heart-icon.favorite-gif path{
   fill: red;
   stroke-width: 0;
 }
 
 .heart-icon, .coppy-icon {
-  color: white !important;
-  background-color: grey;
+  /* color: white !important; */
+  /* background-color: grey; */
   cursor: pointer;
 } 
 
@@ -46,6 +51,25 @@ svg {
 
 .coppy-icon:hover{
   color: blue !important;
+}
+
+.modal-image {
+  width: 100%;
+  border-radius: 8px 8px 0px 0px;
+}
+
+.uk-modal-body {
+  padding: 0!important;
+}
+
+.modal {
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+}
+
+.modal-buttons {
+  margin-top: 4px;
 }
 
 button > * {

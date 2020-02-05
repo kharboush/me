@@ -5,7 +5,9 @@ import * as search from './search.js';
 import * as utils from './utils.js';
 import * as event from './events.js';
 import * as details from './displayDetails.js';
-import * as storage from './localStorage.js';
+import { loadUserPrefs } from './localStorage.js';
+import { store } from './localStorage.js';
+import * as uploadGif from './uploadGif.js';
 
 const trendingPage = () => {
   event.canceler();
@@ -41,6 +43,7 @@ const searchPage = () => {
 
 $(() => {
   // Initial view:
+  loadUserPrefs();
   trendingPage();
   // MENU EVENTS:
   event.logo(utils.scrollToTop);
@@ -49,16 +52,20 @@ $(() => {
   event.showUploads(uploadsPage);
   event.showSearch(searchPage);
   // UNIVERSAL EVENTS
-  event.enter(search.refresh);
+  event.keystroke(search.refresh);
+  event.paste(search.refresh);
   event.searchClose(utils.clearSearch, trendingPage);
   event.hoverGif(utils.animate);
   event.darkmodeClick(utils.darkmodeToggle);
   event.onClickGif(details.showDetails);
   event.favoriteButton(details.favToggle);
-  // event.mouseleaveGif(removeDetailsBottom);
-  // event.deleted(storage.store);
-  // event.modalFavoriteButton(details.favoriteButtonToggle)
-  // event.mouseleaveGif(removeDetailsBottom);
-  // event.addFavorite(storage.favorites);
   event.gifCopy(details.getGifUrl);
+  event.onUpload(uploads.upload);
+  event.onUploadButton(uploads.clickOnUploas);
 });
+
+// event.mouseleaveGif(removeDetailsBottom);
+// event.deleted(storage.store);
+// event.modalFavoriteButton(details.favoriteButtonToggle)
+// event.mouseleaveGif(removeDetailsBottom);
+// event.addFavorite(storage.favorites);

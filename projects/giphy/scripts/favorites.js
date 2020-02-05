@@ -6,6 +6,7 @@ const heading = 'Favorites';
 const fetch = api.fetchFavorites;
 
 const randomMessage = () => {
+  /* eslint-disable-next-line */
   UIkit.notification(
     `<p class="uk-text-small">You haven't picked a favorite, so Faith picked one!</p>`,
     { pos: 'bottom-left', timeout: 3000 }

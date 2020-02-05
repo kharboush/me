@@ -1,3 +1,5 @@
+import * as utils from './utils.js';
+
 export const store = (id, key) => {
   const stored = localStorage.getItem(key);
   const storedId = id;
@@ -5,7 +7,7 @@ export const store = (id, key) => {
     if (stored === null) {
       localStorage.setItem(key, `${storedId}`);
     } else {
-      localStorage.setItem(key, [stored, `${storedId}`]);
+      localStorage.setItem(key, `${stored},${storedId}`);
     }
   } else {
     alert(
@@ -18,12 +20,16 @@ export const del = (id, key) => {
   let stored = localStorage.getItem(key);
   const storedId = id;
   if (typeof Storage !== 'undefined') {
-    if (stored.includes(`${storedId},`)) {
-      stored = stored.replace(`${storedId},`, '');
+    if (stored === storedId) {
+      localStorage.removeItem(key);
     } else {
-      stored = stored.replace(`${storedId}`, '');
+      if (stored.includes(`,${storedId}`)) {
+        stored = stored.replace(`,${storedId}`, '');
+      } else {
+        stored = stored.replace(`${storedId},`, '');
+      }
+      localStorage.setItem(key, stored);
     }
-    localStorage.setItem(key, stored);
   } else {
     alert(
       "Sorry, your browser does not support Web Storage, so we can't remember that"
@@ -32,3 +38,12 @@ export const del = (id, key) => {
 };
 
 // const id = $(ev.target).attr('id');
+
+export const loadUserPrefs = () => {
+  if (localStorage.getItem('largegrid') === 'true') {
+    utils.viewToggle();
+  }
+  if (localStorage.getItem('dark') === 'true') {
+    utils.darkmodeToggle();
+  }
+};

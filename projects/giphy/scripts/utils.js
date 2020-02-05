@@ -17,46 +17,72 @@ const throttle = (() => {
 })();
 
 const animToggle = (() => {
-  let anim = true;
+  let anim = !JSON.parse(localStorage.getItem('animated'));
   const animаtionToggle = () => {
     anim = !anim;
+    localStorage.setItem('animated', anim);
+    // console.log(`user set to ${anim}`);
     const populated = async (callback, number = 30, offset) => {
+      localStorage.setItem('animated', anim);
       const $container = $('#gif-list');
-      const gifs = await callback(number, offset);
+      let gifs = await callback(number, offset);
+      // eslint-disable-next-line no-unused-expressions
+      !Array.isArray(gifs) ? (gifs = [gifs]) : '';
       gifs.forEach(gif => {
+        const title = gif.title.replace('GIF', '').split(' by ')[0];
+        const author = gif.title.split(' by ')[1]
+          ? gif.title.split(' by ')[1]
+          : 'Anonymous';
         $container.append(`
         <div uk-scrollspy="cls:uk-animation-fade" style="position:relative" class="giphy-gif-grid details-overlay">
-        <img class="uk-responsive-width uk-responsive-height" style="width: 100%; border-radius:8px; position:relative" id="${
+        <img class="uk-responsive-width uk-responsive-height giphy-gif" id="${
           gif.id
         }" src="${
           anim ? gif.images.fixed_height.url : gif.images.fixed_height_still.url
         }" alt="${gif.title}" uk-tooltip="${gif.title}" href="#modal-center-${
           gif.id
         }" uk-toggle>
-        
+
         <div id="modal-center-${gif.id}" class="uk-flex-top" uk-modal>
-        <div modal-id="modal-center-${
-          gif.id
-        }" class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-padding-remove">
-          <img class="uk-responsive-width uk-responsive-height" style="width: 100%; border-radius:8px; position:relative" modal-id="${
+        <div modal-id="modal-center-${gif.id}" class="uk-modal-dialog ${$(
+          'html'
+        ).attr(
+          'class'
+        )} uk-modal-body uk-animation-slide-bottom-small uk-margin-auto-vertical uk-padding-remove${$(
+          'html'
+        ).attr('class')} modal">
+          <img class="uk-responsive-width uk-responsive-height modal-image" modal-id="${
             gif.id
-          }" src="${gif.images.fixed_height.url}" alt="${gif.title}">
-          <p>${gif.title}</p>
+          } " src="${gif.images.fixed_height.url}" alt="${gif.title}">
+         
+         
+         <div class="uk-container uk-padding-small">
+         <div class="uk-float-left uk-margin-right">
+          <p class="uk-margin-remove uk-text-emphasis">${title}</p>
+          <div class="uk-margin-remove">
+          <p class="uk-display-inline uk-text-small uk-text-meta">by</p>
+          <p class="uk-display-inline uk-text-small uk-text-italic">${author}</p></div>
 
-          <div></div>
-          <span type="button" class="favorite-button uk-icon-button uk-margin-small-left heart-icon" favorite-id="${
+          </div>
+      
+          <div class="uk-float-right modal-buttons">
+
+          <button type="button" class="uk-icon-button uk-icon favorite-button heart-icon" uk-icon="heart" favorite-id="${
             gif.id
-          }" id="add-favorite" uk-tooltip="Favorite" uk-icon="heart"></span>
-    
-          <span type="button" class="uk-icon-button uk-margin-small-right coppy-icon" coppy-id="${
+          }" id="add-favorite" uk-tooltip="Favorite"></button>
+          <button type="button" class="uk-icon-button coppy-icon" coppy-id="${
             gif.id
-          }" uk-icon="copy" uk-tooltip="Copy URL" gif-url="${
+          } " uk-icon="copy" uk-tooltip="Copy URL" gif-url="${
           gif.images.original.url
-        }"></span>
+        }"></button></div>
+      
+      </div>
+      
+      
         </div>
-        </div>
+      </div>
 
-        </div>
+      </div>
         `);
       });
     };
@@ -94,6 +120,7 @@ const darkmodeToggle = (() => {
       $('.uk-light')
         .addClass('uk-dark')
         .removeClass('uk-light');
+      localStorage.setItem('dark', false);
       dark = false;
     } else {
       $('.uk-background-default')
@@ -103,6 +130,7 @@ const darkmodeToggle = (() => {
       $('.uk-dark')
         .addClass('uk-light')
         .removeClass('uk-dark');
+      localStorage.setItem('dark', true);
       dark = true;
     }
   };
@@ -119,6 +147,7 @@ const viewToggle = (() => {
         .addClass(
           'uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m uk-grid uk-flex-top uk-flex-wrap-top'
         );
+      localStorage.setItem('largegrid', false);
       largegrid = false;
     } else {
       $('#grid-toggle').attr('uk-icon', 'grid');
@@ -127,6 +156,7 @@ const viewToggle = (() => {
         .addClass(
           'uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-grid uk-flex-top uk-flex-wrap-top'
         );
+      localStorage.setItem('largegrid', true);
       largegrid = true;
     }
   };

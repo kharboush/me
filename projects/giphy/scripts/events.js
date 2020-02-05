@@ -75,6 +75,12 @@ export const showFavorites = callback =>
 // Click on Uploads tab
 export const showUploads = callback => $('#menu-uploads').on('click', callback);
 
+// Upload GIF
+export const onUpload = callback => $('#upload-input').change(callback);
+
+// Upload GIF click on Button
+export const onUploadButton = callback => $(document).on('click', '#upload-button', callback);
+
 // Click on Search button
 export const showSearch = callback => {
   $('#searchBtn')
@@ -103,7 +109,7 @@ export const scrollToBottom = callback => {
 };
 
 // Listener for keystrokes on Search field
-export const enter = async callback => {
+export const keystroke = callback => {
   $('#navsearch').on('keypress', ev => {
     const selected = window.getSelection().toString();
     let text = $('#navsearch').val();
@@ -116,8 +122,14 @@ export const enter = async callback => {
       const input = $('#navsearch').val();
       const last = ev.key;
       $('#navsearch').val(input + last);
-      callback();
+      setTimeout(() => callback(), 1000);
       $('#navsearch').val(input);
     }
+  });
+};
+
+export const paste = callback => {
+  $('#navsearch').on('paste', () => {
+    callback();
   });
 };

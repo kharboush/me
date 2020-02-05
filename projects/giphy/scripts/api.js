@@ -1,5 +1,8 @@
+import { store } from './localStorage.js';
+
 export const key = 'GbhsFBVGYXSrSwTiw3FdFVY1EpsmkWxw';
 export const server = 'http://api.giphy.com/v1/gifs';
+export const uploadUrl = 'https://upload.giphy.com/v1/gifs';
 
 export const fetchTrending = async (number, offsetAmount) => {
   const offset = !offsetAmount ? `` : `&offset=${offsetAmount}`;
@@ -39,7 +42,7 @@ export const fetchUploads = async () => {
         ? await fetch(`${server}/random?api_key=${key}`)
         : await fetch(`${server}?api_key=${key}&ids=${uploadIds}`);
     const json = await promise.json();
-    return [json.data];
+    return json.data;
   } catch (error) {
     alert(error.message);
   }
@@ -55,5 +58,23 @@ export const fetchSearch = async () => {
     return json.data;
   } catch (error) {
     alert(error.message);
+  }
+};
+
+export const fetchUpload = async gif => {
+  try {
+    const response = await fetch(`${uploadUrl}?api_key=${key}`, {
+      method: 'POST',
+      body: gif,
+    });
+    const result = await response.json();
+    // console.log(result);
+    // alert('Success uploaded');
+    const { id } = result.data;
+    console.log(id);
+    store(id, 'uploads');
+  } catch (err) {
+    // alert(err.message);
+    console.log(err.message);
   }
 };
