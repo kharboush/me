@@ -20,7 +20,6 @@ const favoritesPage = () => {
   utils.cancelPageEvents();
   event.toggleViewClick(utils.viewToggle, favorites.refresh);
   event.toggleAnimClick(utils.animToggle, favorites.refresh);
-  event.scrollToBottom(favorites.nextPage);
   favorites.refresh();
 };
 
@@ -28,7 +27,6 @@ const uploadsPage = () => {
   utils.cancelPageEvents();
   event.toggleViewClick(utils.viewToggle, uploads.refresh);
   event.toggleAnimClick(utils.animToggle, uploads.refresh);
-  event.scrollToBottom(uploads.nextPage);
   uploads.refresh();
 };
 

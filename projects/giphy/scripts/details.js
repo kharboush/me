@@ -48,7 +48,6 @@ const favToggle = ev => {
     $('.favorite-button').removeClass('favorite-gif');
     $('.favorite-button').attr('id', 'add-favorite');
     storage.del(gifId, 'favorites');
-    favorites.refresh();
   }
 };
 

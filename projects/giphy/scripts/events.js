@@ -114,12 +114,14 @@ const keystroke = callback => {
   );
 };
 
-const preventEnter = () =>
+// Prevent Enter button
+const preventEnter = () => {
   $('#navsearch').on('keypress', ev => {
     if (ev.keyCode === 13) {
       ev.preventDefault();
     }
   });
+};
 
 // Paste event in searchbox
 const paste = callback => {
