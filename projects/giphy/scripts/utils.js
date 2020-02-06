@@ -37,21 +37,21 @@ const animToggle = (() => {
           gif.user === undefined ? 'javascript:void(0)' : gif.user.profile_url;
         /*eslint-disable*/
         $container.append(`
-          <div uk-scrollspy="cls:uk-animation-fade" style="position:relative" class="giphy-gif-grid details-overlay">
-            <img class="uk-responsive-width uk-responsive-height giphy-gif" id="${gif.id}" 
+          <div uk-scrollspy="cls:uk-animation-fade; repeat: true" style="position:relative" class="giphy-gif-grid details-overlay">
+            <img class="uk-responsive-width uk-responsive-height uk-animation-slide-bottom-medium giphy-gif" id="${gif.id}" 
               src="${anim ? gif.images.fixed_height.url : gif.images.fixed_height_still.url}" alt="${gif.title}" 
               uk-tooltip="${gif.title}" href="#modal-center-${gif.id}" uk-toggle>
             <div id="modal-center-${gif.id}" class="uk-flex-top" uk-modal>
               <div modal-id="modal-center-${gif.id}" class="uk-modal-dialog ${$('html').attr('class')} uk-modal-body 
                 uk-animation-slide-bottom-small uk-margin-auto-vertical uk-padding-remove${$('html').attr('class')} modal">
-                <img class="uk-responsive-width uk-responsive-height modal-image" modal-id="${
-                gif.id}" src="${gif.images.fixed_height.url}" alt="${gif.title}">
+                <img class="uk-responsive-width uk-responsive-height uk-animation-fade modal-image" modal-id="${
+                gif.id}" data-src="${gif.images.fixed_height.url}" alt="${gif.title}" uk-img>
                 <div class="uk-container uk-padding-small">
                   <div class="uk-float-left uk-margin-right">
                     <p class="uk-margin-remove uk-text-emphasis">${title}</p>
                     <div class="uk-margin-remove">
                       <p class="uk-display-inline uk-text-small uk-text-meta">by</p>
-                      <a href="${authorProfile}" class="uk-display-inline uk-link-text uk-text-small uk-text-italic">${author}</a>
+                      <a href="${authorProfile}" class="uk-display-inline uk-link-muted uk-link-text uk-text-small uk-text-italic">${author}</a>
                     </div>
                   </div>
                   <div class="uk-float-right modal-buttons">

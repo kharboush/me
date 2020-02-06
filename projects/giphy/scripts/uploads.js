@@ -23,19 +23,19 @@ export const refresh = () => {
   $('#spinner').hide();
   utils.refresh(fetch);
   const $container = $('#gif-list');
-  $container.append(
-    `<div class="giphy-gif-grid details-overlay uk-scrollspy-inview uk-animation-fade" uk-scrollspy="cls:uk-animation-fade">
-    <div class="uk-card-primary uk-padding" style="border-radius:8px" id="upload-input-card">
-    <span class="uk-margin-small-bottom" uk-icon="icon: cloud-upload"></span><br>
-    <span class="uk-text-middle uk-margin-top">Click to upload a GIF</span>
-    <div uk-form-custom>
-    <input type="file" id="upld-input" name="upload-file">
-        
+  /*eslint-disable*/
+  $container.append(`
+    <div class="giphy-gif-grid details-overlay uk-scrollspy-inview uk-animation-fade" uk-scrollspy="cls:uk-animation-fade">
+      <div class="uk-card-primary uk-padding" style="border-radius:8px" id="upload-input-card">
+        <span class="uk-margin-small-bottom" uk-icon="icon: cloud-upload"></span><br>
+        <span class="uk-text-middle uk-margin-top">Click to upload a GIF</span>
+        <div uk-form-custom>
+          <input type="file" id="upld-input" name="upload-file"> 
+        </div>
+      </div>
     </div>
-</div>
-    </div>
-    </div>`
-  );
+  `);
+  /*eslint-disable*/
 };
 
 // Package uploaded file to formData object
@@ -44,8 +44,7 @@ export const upload = ev => {
   const formData = new FormData();
   formData.append('file', file);
   // console.log(formData.get('file'));
-  api
-    .gifUpload(formData)
+  api.gifUpload(formData)
     .then(() => refresh())
     .then($('#spinner').show())
     .then(
