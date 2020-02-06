@@ -35,6 +35,7 @@ const animToggle = (() => {
           : 'Anonymous';
         const authorProfile =
           gif.user === undefined ? 'javascript:void(0)' : gif.user.profile_url;
+        const authorImage = gif.user === undefined ? '' : gif.user.avatar_url;
         /*eslint-disable*/
         $container.append(`
           <div uk-scrollspy="cls:uk-animation-fade; repeat: true" style="position:relative" class="giphy-gif-grid details-overlay">
@@ -46,7 +47,7 @@ const animToggle = (() => {
                 uk-animation-slide-bottom-small uk-margin-auto-vertical uk-padding-remove${$('html').attr('class')} modal">
                 <img class="uk-responsive-width uk-responsive-height uk-animation-fade modal-image" modal-id="${
                 gif.id}" width="300" height="300" data-src="${gif.images.fixed_height.url}" alt="${gif.title}" uk-img>
-                <div class="uk-container uk-padding-small">
+                <div class="uk-container uk-padding-small user-${gif.id}">
                   <div class="uk-float-left uk-margin-right">
                     <p class="uk-margin-remove uk-text-emphasis">${title}</p>
                     <div class="uk-margin-remove">
@@ -65,6 +66,10 @@ const animToggle = (() => {
             </div>
           </div>
         `);
+        if (authorImage) {
+          $(`.user-${gif.id}`).prepend(`<img class="uk-float-left uk-border-circle author-image
+          uk-margin-small-right uk-margin-small-top" src="${authorImage}">`)
+        }
         /*eslint-disable*/
       });
     };

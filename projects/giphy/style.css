@@ -86,6 +86,11 @@ svg {
   margin-top: 4px;
 }
 
+.author-image {
+  width: 30px;
+  margin-right:12px!important;
+}
+
 button > * {
   pointer-events: none;
 }
