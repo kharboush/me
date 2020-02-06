@@ -1,104 +1,88 @@
 import * as utils from './utils.js';
 
-const toggleSearchBar = () => {
-  $('#searchhider').trigger('click');
-};
-
-export const canceler = () => {
-  $('#anim-toggle').off();
-  $('#grid-toggle').off();
-  $('.menu').off('click', toggleSearchBar);
-  $(window).off();
-};
-
+// Click EVENTS
 // Click on logo
-export const logo = callback => {
+const logo = callback => {
   $('#logo').on('click', callback);
 };
 
 // Click on Search close button
-export const searchClose = (callback1, callback2) => {
+const searchClose = (callback1, callback2) => {
   $('#searchCloseBtn')
     .on('click', callback1)
     .on('click', callback2);
 };
 
 // Click on Dark Mode button
-export const darkmodeClick = callback => {
+const darkmodeClick = callback => {
   $('#darkmode').on('click', callback);
 };
 
-// Click EVENTS
 // Click on Grid button
-export const toggleViewClick = (callback1, callback2) => {
+const toggleViewClick = (callback1, callback2) => {
   $('#grid-toggle')
     .on('click', callback1)
     .on('click', callback2);
 };
 
 // Click on Animate button
-export const toggleAnimClick = (callback1, callback2) => {
+const toggleAnimClick = (callback1, callback2) => {
   $('#anim-toggle')
     .on('click', callback1)
     .on('click', callback2);
 };
 
 // Click on GIF
-export const onClickGif = callback =>
+const onClickGif = callback =>
   $('#gif-list').on('click', 'img', ev => {
     callback(ev);
   });
 
-// Mouseleave GIF
-// export const mouseleaveGif = callback => {
-//   $('#gif-list').on('mouseleave', '.remove-gif-overlay', callback);
-// };
+// Click on modal Copy URL button
+const gifCopy = callback =>
+  $(document.body).on('click', '.coppy-icon', callback);
 
-// Copy URL
-export const gifCopy = callback =>
-  $(document).on('click', '.coppy-icon', callback);
-
-// Click on Favorites
-export const favoriteButton = callback =>
-  $(document).on('click', `.favorite-button`, ev => {
+// Click on modal Heart button
+const favoriteButton = callback =>
+  $(document.body).on('click', `.favorite-button`, ev => {
     callback(ev);
   });
 
 // Click on Trending tab
-export const showTrending = callback =>
-  $('#menu-trending').on('click', callback);
+const showTrending = callback => $('#menu-trending').on('click', callback);
 
 // Click on Favorites tab
-export const showFavorites = callback =>
-  $('#menu-favorites').on('click', callback);
+const showFavorites = callback => $('#menu-favorites').on('click', callback);
 
 // Click on Uploads tab
-export const showUploads = callback => $('#menu-uploads').on('click', callback);
+const showUploads = callback => $('#menu-uploads').on('click', callback);
 
-// Upload GIF
-export const onUpload = callback => $('#upload-input').change(callback);
-
-// Upload GIF click on input-card
-export const onUploadCard = callback =>
-  $(document).on('click', '#upload-input-card', callback);
+// Click on Upload GIF card
+const onUploadCard = callback =>
+  $('#gif-list').on('click', '#upload-input-card', callback);
 
 // Click on Search button
-export const showSearch = callback => {
+const showSearch = callback => {
   $('#searchBtn')
     .on('click', callback)
     .on('click', () => {
-      $(`.menu`).on('click', toggleSearchBar);
+      $(`.menu`).on('click', utils.toggleSearchBar);
     });
+};
+
+// Double click on modal to Favorite
+const modalImgDblClick = callback => {
+  $(document.body).on('dblclick', '.modal-image', callback);
 };
 
 // Other Interaction EVENTS
 // Hover on GIF
-export const hoverGif = callback => {
-  $(document).on('mouseover', '.giphy-gif-grid', callback);
+const hoverGif = callback => {
+  $(document.body).on('mouseover', '.giphy-gif-grid', callback);
 };
 
 // Scroll
-export const scrollToBottom = callback => {
+const scrollToBottom = callback => {
   $(window).scroll(() => {
     if (
       $(window).scrollTop() + $(window).height() >
@@ -109,32 +93,64 @@ export const scrollToBottom = callback => {
   });
 };
 
-export const modalImgDblClick = callback => {
-  $(document).on('dblclick', '.modal-image', callback);
-};
+// Upload GIF command
+const onUpload = callback => $('#upload-input').change(callback);
 
 // Listener for keystrokes on Search field
-export const keystroke = callback => {
-  $('#navsearch').on('keypress', ev => {
-    const selected = window.getSelection().toString();
-    let text = $('#navsearch').val();
-    text = text.replace(selected, '');
-    $('#navsearch').val(text);
-    if (ev.keyCode === 13) {
-      ev.preventDefault();
-    } else {
-      // comment this part out to disable search on keystroke
-      const input = $('#navsearch').val();
-      const last = ev.key;
-      $('#navsearch').val(input + last);
-      setTimeout(() => callback(), 1000);
-      $('#navsearch').val(input);
-    }
-  });
+const keystroke = callback => {
+  $('#navsearch').on(
+    'keypress',
+    utils.delayInput(
+      () => {
+        const selected = window.getSelection().toString();
+        let text = $('#navsearch').val();
+        text = text.replace(selected, '');
+        $('#navsearch').val(text);
+        callback();
+      },
+      750, // <== Timer to delay
+      callback
+    )
+  );
 };
 
-export const paste = callback => {
+const preventEnter = $('#navsearch').on('keypress', ev => {
+  if (ev.keyCode === 13) {
+    ev.preventDefault();
+  }
+});
+
+// Paste event in searchbox
+const paste = callback => {
   $('#navsearch').on('paste', () => {
     callback();
   });
 };
+
+export {
+  logo,
+  searchClose,
+  darkmodeClick,
+  toggleViewClick,
+  toggleAnimClick,
+  onClickGif,
+  gifCopy,
+  favoriteButton,
+  showTrending,
+  showFavorites,
+  showUploads,
+  onUpload,
+  onUploadCard,
+  showSearch,
+  hoverGif,
+  scrollToBottom,
+  modalImgDblClick,
+  keystroke,
+  paste,
+  preventEnter
+};
+
+// const selected = window.getSelection().toString();
+// let text = $('#navsearch').val();
+// text = text.replace(selected, '');
+// $('#navsearch').val(text);

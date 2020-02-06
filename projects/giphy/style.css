@@ -12,7 +12,7 @@
 
 #gif-list .uk-position-bottom{
   z-index: 1;
-  border-radius: 7px;
+  border-radius: 8px;
   padding: 0px;
 }
 
@@ -43,6 +43,14 @@ svg {
   stroke-width: 0;
 }
 
+[uk-icon="check"] {
+  color:green;
+}
+
+[uk-icon="check"]:hover {
+  color:green !important;
+}
+
 .heart-icon, .coppy-icon {
   /* color: white !important; */
   /* background-color: grey; */
@@ -54,7 +62,7 @@ svg {
 }
 
 .coppy-icon:hover{
-  color: blue !important;
+  color: blue;
 }
 
 .modal-image {

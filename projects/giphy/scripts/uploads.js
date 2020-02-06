@@ -1,5 +1,4 @@
 import * as api from './api.js';
-
 import * as utils from './utils.js';
 
 // CHANGE THIS BETWEEN PAGES
@@ -12,15 +11,6 @@ const randomMessage = () => {
     `<p class="uk-text-small">You haven't uploaded, so Faith picked at random!</p>`,
     { pos: 'bottom-left', timeout: 3000 }
   );
-};
-
-// Package uploaded file to formData object
-export const upload = ev => {
-  const file = ev.target.files[0];
-  const formData = new FormData();
-  formData.append('file', file);
-  // console.log(formData.get('file'));
-  api.fetchUpload(formData);
 };
 
 // COPY THIS
@@ -37,15 +27,32 @@ export const refresh = () => {
     `<div class="giphy-gif-grid details-overlay uk-scrollspy-inview uk-animation-fade" uk-scrollspy="cls:uk-animation-fade">
     <div class="uk-card-primary uk-padding" style="border-radius:8px" id="upload-input-card">
     <span class="uk-margin-small-bottom" uk-icon="icon: cloud-upload"></span><br>
-    <span class="uk-text-middle uk-margin-top">Upload a GIF by dropping it here or</span>
+    <span class="uk-text-middle uk-margin-top">Click to upload a GIF</span>
     <div uk-form-custom>
     <input type="file" id="upld-input" name="upload-file">
-        <span class="uk-link" id="upld-btn">selecting it!</span>
+        
     </div>
 </div>
     </div>
     </div>`
   );
+};
+
+// Package uploaded file to formData object
+export const upload = ev => {
+  const file = ev.target.files[0];
+  const formData = new FormData();
+  formData.append('file', file);
+  // console.log(formData.get('file'));
+  api
+    .gifUpload(formData)
+    .then(() => refresh())
+    .then($('#spinner').show())
+    .then(
+      setTimeout(() => {
+        $('#spinner').hide();
+      }, 3000)
+    );
 };
 
 export const nextPage = (() => {

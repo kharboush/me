@@ -5,6 +5,7 @@ import * as utils from './utils.js';
 const heading = 'Favorites';
 const fetch = api.fetchFavorites;
 
+// Random message
 const randomMessage = () => {
   /* eslint-disable-next-line */
   UIkit.notification(
@@ -12,8 +13,9 @@ const randomMessage = () => {
     { pos: 'bottom-left', timeout: 3000 }
   );
 };
-// COPY THIS
-export const refresh = () => {
+
+// Refresh page
+const refresh = () => {
   $('.uk-heading:first').text(`${heading}`);
   $('#gif-list').attr('uk-grid', 'masonry: true; parallax: 0');
   if (localStorage.getItem('favorites') === null) {
@@ -23,12 +25,4 @@ export const refresh = () => {
   utils.refresh(fetch);
 };
 
-export const nextPage = (() => {
-  const offsetNum = 30;
-
-  const addCount = () => {
-    // offsetNum += 30;
-    // utils.populate(fetch, undefined, offsetNum);
-  };
-  return addCount;
-})();
+export { refresh };

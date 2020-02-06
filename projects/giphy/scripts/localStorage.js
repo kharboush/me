@@ -1,6 +1,15 @@
 import * as utils from './utils.js';
 
-export const store = (id, key) => {
+const randomMessage = () => {
+  /* eslint-disable-next-line */
+  UIkit.notification(
+    `<p class="uk-text-small">Sorry, your browser does not support Web Storage, so we can't remember that!</p>`,
+    { pos: 'bottom-left', timeout: 3000 }
+  );
+};
+
+// Receives an ID and key and adds it to the string, without overwriting
+const store = (id, key) => {
   const stored = localStorage.getItem(key);
   const storedId = id;
   if (typeof Storage !== 'undefined') {
@@ -10,13 +19,12 @@ export const store = (id, key) => {
       localStorage.setItem(key, `${stored},${storedId}`);
     }
   } else {
-    alert(
-      "Sorry, your browser does not support Web Storage, so we can't remember that"
-    );
+    utils.throttle(randomMessage, 1000);
   }
 };
 
-export const del = (id, key) => {
+// Receives an ID and key and deletes it from the string
+const del = (id, key) => {
   let stored = localStorage.getItem(key);
   const storedId = id;
   if (typeof Storage !== 'undefined') {
@@ -31,15 +39,12 @@ export const del = (id, key) => {
       localStorage.setItem(key, stored);
     }
   } else {
-    alert(
-      "Sorry, your browser does not support Web Storage, so we can't remember that"
-    );
+    utils.throttle(randomMessage, 1000);
   }
 };
 
-// const id = $(ev.target).attr('id');
-
-export const loadUserPrefs = () => {
+// Checks the user's View and Dark Mode preferences and changes on page load.
+const loadUserPrefs = () => {
   if (localStorage.getItem('largegrid') === 'true') {
     utils.viewToggle();
   }
@@ -47,3 +52,5 @@ export const loadUserPrefs = () => {
     utils.darkmodeToggle();
   }
 };
+
+export { store, del, loadUserPrefs };

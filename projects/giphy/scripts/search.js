@@ -5,14 +5,15 @@ import * as utils from './utils.js';
 const heading = '';
 const fetch = api.fetchSearch;
 
-// COPY THIS
-export const refresh = () => {
+// Refresh page
+const refresh = () => {
   $('.uk-heading:first').text(`${heading}`);
   $('#spinner').show();
   return utils.refresh(fetch);
 };
 
-export const nextPage = (() => {
+// Closure infinite scroll offset
+const nextPage = (() => {
   let offsetNum = 30;
 
   const addCount = () => {
@@ -21,3 +22,5 @@ export const nextPage = (() => {
   };
   return addCount;
 })();
+
+export { refresh, nextPage };

@@ -1,10 +1,12 @@
+/* eslint-disable no-undef */
 import { store } from './localStorage.js';
 
-export const key = 'GbhsFBVGYXSrSwTiw3FdFVY1EpsmkWxw';
-export const server = 'http://api.giphy.com/v1/gifs';
-export const uploadUrl = 'https://upload.giphy.com/v1/gifs';
+const key = 'GbhsFBVGYXSrSwTiw3FdFVY1EpsmkWxw';
+const server = 'http://api.giphy.com/v1/gifs';
+const uploadUrl = 'https://upload.giphy.com/v1/gifs';
 
-export const fetchTrending = async (number, offsetAmount) => {
+// Request Tranding GIF
+const fetchTrending = async (number, offsetAmount) => {
   const offset = !offsetAmount ? `` : `&offset=${offsetAmount}`;
   try {
     const promise = await fetch(
@@ -14,24 +16,28 @@ export const fetchTrending = async (number, offsetAmount) => {
     return json.data;
   } catch (error) {
     console.log(error.message);
+    setTimeout(fetchTrending(number, offsetAmount), 5000);
   }
 };
 
-export const fetchFavorites = async () => {
+// Request Favorites GIF
+const fetchFavorites = async () => {
   const favIds = localStorage.getItem('favorites');
   try {
     const promise =
-      favIds === null ?
-      await fetch(`${server}/random?api_key=${key}`) :
-      await fetch(`${server}?api_key=${key}&ids=${favIds}`);
+      favIds === null
+        ? await fetch(`${server}/random?api_key=${key}`)
+        : await fetch(`${server}?api_key=${key}&ids=${favIds}`);
     const json = await promise.json();
     return json.data;
   } catch (error) {
     console.log(error.message);
+    setTimeout(fetchFavorites(), 5000);
   }
 };
 
-export const fetchUploads = async () => {
+// Request uploads page
+const fetchUploads = async () => {
   const uploadIds = localStorage.getItem('uploads');
   try {
     const promise =
@@ -43,22 +49,12 @@ export const fetchUploads = async () => {
     return json.data;
   } catch (error) {
     console.log(error.message);
+    setTimeout(fetchUploads(), 5000);
   }
 };
 
-// export const fetchUploads = async () => {
-//   const uploadIds = localStorage.getItem('uploads');
-//   try {
-//     const promise = await fetch(`${server}?api_key=${key}&ids=${uploadIds}`);
-//     console.log(promise)
-//     const json = await promise.json();
-//     return json.data;
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// };
-
-export const fetchSearch = async () => {
+// Request Search
+const fetchSearch = async () => {
   const searchTerm = $(`#navsearch`).val();
   try {
     const promise = await fetch(
@@ -68,28 +64,30 @@ export const fetchSearch = async () => {
     return json.data;
   } catch (error) {
     alert(error.message);
+    setTimeout(fetchSearch(), 5000);
   }
 };
 
-export const fetchUpload = async gif => {
-  // const uploadIds = localStorage.getItem('uploads');
+// Request Upload GIF
+const gifUpload = async gif => {
   try {
     const response = await fetch(`${uploadUrl}?api_key=${key}`, {
       method: 'POST',
       body: gif,
     });
     const result = await response.json();
-    const id = result.data.id;
-    // console.log(id);
+    const { id } = result.data;
     store(id, 'uploads');
+    UIkit.notification({
+      message: 'Successfully uploaded',
+      status: 'success',
+    });
   } catch (err) {
-    alert(err.message);
-    // console.log(err.message);
+    UIkit.notification({
+      message: 'Uploading failed!',
+      status: 'danger',
+    });
   }
 };
 
-// export const fetchGifDetails = async id => {
-//   const response = await fetch(`${server}/${id}?api_key=${key}`);
-//   const result = await response.json();
-//   return result.data;
-// };
+export { fetchTrending, fetchFavorites, fetchUploads, fetchSearch, gifUpload };
