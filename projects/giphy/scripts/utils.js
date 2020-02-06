@@ -29,14 +29,22 @@ const animToggle = (() => {
       // eslint-disable-next-line no-unused-expressions
       !Array.isArray(gifs) ? (gifs = [gifs]) : '';
       gifs.forEach(gif => {
-        const title = gif.title.replace('GIF', '').split(' by ')[0];
-        const author = gif.title.split(' by ')[1]
-          ? gif.title.split(' by ')[1]
-          : 'Anonymous';
-        const authorProfile =
-          gif.user === undefined ? 'javascript:void(0)' : gif.user.profile_url;
-        const authorImage = gif.user === undefined ? '' : gif.user.avatar_url;
+        const title = gif.title.replace('GIF', '').split(' by ')[0]
+          ? gif.title.replace('GIF', '').split(' by ')[0]
+          : 'GIF';
+        const user =
         /*eslint-disable*/
+        gif.title.replace('GIF', '').split(' by ')[1] &&
+        gif.title.replace('GIF', '').split(' by ')[1] !== ''
+        ? gif.title.replace('GIF', '').split(' by ')[1]
+        : gif.user
+        ? gif.user.display_name
+        : 'Anonymous';
+        /*eslint-disable*/
+        const userProfile = !gif.user
+          ? 'javascript:void(0)'
+          : gif.user.profile_url;
+        const userImage = gif.user === undefined ? '' : gif.user.avatar_url;
         $container.append(`
           <div uk-scrollspy="cls:uk-animation-fade; repeat: true" style="position:relative" class="giphy-gif-grid details-overlay">
             <img class="uk-responsive-width uk-responsive-height uk-animation-slide-bottom-medium giphy-gif" width="500" height="500" id="${gif.id}" 
@@ -45,6 +53,7 @@ const animToggle = (() => {
             <div id="modal-center-${gif.id}" class="uk-flex-top" uk-modal>
               <div modal-id="modal-center-${gif.id}" class="uk-modal-dialog ${$('html').attr('class')} uk-modal-body 
                 uk-animation-slide-bottom-small uk-margin-auto-vertical uk-padding-remove${$('html').attr('class')} modal">
+                <button class="uk-modal-close-default" type="button" uk-tooltip="Close" uk-close></button>
                 <img class="uk-responsive-width uk-responsive-height uk-animation-fade modal-image" modal-id="${
                 gif.id}" width="300" height="300" data-src="${gif.images.fixed_height.url}" alt="${gif.title}" uk-img>
                 <div class="uk-container uk-padding-small user-${gif.id}">
@@ -52,7 +61,7 @@ const animToggle = (() => {
                     <p class="uk-margin-remove uk-text-emphasis">${title}</p>
                     <div class="uk-margin-remove">
                       <p class="uk-display-inline uk-text-small uk-text-meta">by</p>
-                      <a href="${authorProfile}" class="uk-display-inline uk-link-muted uk-link-text uk-text-small uk-text-italic">${author}</a>
+                      <a href="${userProfile}" target="_blank" class="uk-display-inline uk-link-muted uk-link-text uk-text-small uk-text-italic">${user}</a>
                     </div>
                   </div>
                   <div class="uk-float-right modal-buttons">
@@ -66,9 +75,9 @@ const animToggle = (() => {
             </div>
           </div>
         `);
-        if (authorImage) {
-          $(`.user-${gif.id}`).prepend(`<img class="uk-float-left uk-border-circle author-image
-          uk-margin-small-right uk-margin-small-top" src="${authorImage}">`)
+        if (userImage) {
+          $(`.user-${gif.id}`).prepend(`<img class="uk-float-left uk-border-circle user-avatar
+          uk-margin-small-right uk-margin-small-top" src="${userImage}">`)
         }
         /*eslint-disable*/
       });

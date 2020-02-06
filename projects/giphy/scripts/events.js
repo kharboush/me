@@ -116,7 +116,7 @@ const keystroke = callback => {
 
 // Prevent Enter button
 const preventEnter = () => {
-  $('#navsearch').on('keypress', ev => {
+  $('#navsearch').on('keydown', ev => {
     if (ev.keyCode === 13) {
       ev.preventDefault();
     }
@@ -125,9 +125,16 @@ const preventEnter = () => {
 
 // Paste event in searchbox
 const paste = callback => {
-  $('#navsearch').on('paste', () => {
-    callback();
-  });
+  $('#navsearch').on(
+    'paste',
+    utils.delayInput(
+      () => {
+        callback();
+      },
+      1, // <== Timer to delay
+      callback
+    )
+  );
 };
 
 export {
@@ -150,7 +157,7 @@ export {
   modalImgDblClick,
   keystroke,
   paste,
-  preventEnter,
+  preventEnter
 };
 
 // const selected = window.getSelection().toString();
