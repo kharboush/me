@@ -137,6 +137,13 @@ const paste = callback => {
   );
 };
 
+// Tooltip Hider
+UIkit.util.on(document, 'show', '.uk-tooltip', function() {
+  setTimeout(() => {
+    $('.uk-tooltip').hide();
+  }, 1400);
+});
+
 export {
   logo,
   searchClose,
@@ -157,7 +164,7 @@ export {
   modalImgDblClick,
   keystroke,
   paste,
-  preventEnter
+  preventEnter,
 };
 
 // const selected = window.getSelection().toString();
