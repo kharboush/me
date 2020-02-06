@@ -139,9 +139,12 @@ const paste = callback => {
 
 // Tooltip Hider
 UIkit.util.on(document, 'show', '.uk-tooltip', function() {
-  setTimeout(() => {
-    $('.uk-tooltip').hide();
-  }, 1400);
+  setTimeout(
+    utils.throttle(() => {
+      $('.uk-tooltip').hide();
+    }, 1600),
+    1600
+  );
 });
 
 export {
