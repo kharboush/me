@@ -9,7 +9,10 @@ const randomMessage = () => {
   /* eslint-disable-next-line */
   UIkit.notification(
     `<p class="uk-text-small">You haven't uploaded, so Faith picked at random!</p>`,
-    { pos: 'bottom-left', timeout: 3000 }
+    {
+      pos: 'bottom-left',
+      timeout: 3000,
+    }
   );
 };
 
@@ -23,19 +26,14 @@ export const refresh = () => {
   $('#spinner').hide();
   utils.refresh(fetch);
   const $container = $('#gif-list');
-  /*eslint-disable*/
   $container.append(`
     <div class="giphy-gif-grid details-overlay uk-scrollspy-inview uk-animation-fade" uk-scrollspy="cls:uk-animation-fade">
       <div class="uk-card-primary uk-padding" style="border-radius:8px" id="upload-input-card">
         <span class="uk-margin-small-bottom" uk-icon="icon: cloud-upload"></span><br>
         <span class="uk-text-middle uk-margin-top">Click to upload a GIF</span>
-        <div uk-form-custom>
-          <input type="file" id="upld-input" name="upload-file"> 
-        </div>
       </div>
     </div>
   `);
-  /*eslint-disable*/
 };
 
 // Package uploaded file to formData object
@@ -43,15 +41,7 @@ export const upload = ev => {
   const file = ev.target.files[0];
   const formData = new FormData();
   formData.append('file', file);
-  // console.log(formData.get('file'));
-  api.gifUpload(formData)
-    .then(() => refresh())
-    .then($('#spinner').show())
-    .then(
-      setTimeout(() => {
-        $('#spinner').hide();
-      }, 3000)
-    );
+  api.gifUpload(formData).then(() => refresh());
 };
 
 export const nextPage = (() => {
@@ -63,9 +53,7 @@ export const nextPage = (() => {
   return addCount;
 })();
 
-// <<
-// << << < Updated upstream
-
-export const clickOnUploads = ev => {
+// Click ot hidden input upload
+export const clickOnUploads = () => {
   $('#upload-input').click();
 };

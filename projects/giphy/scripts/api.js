@@ -45,7 +45,6 @@ const fetchUploads = async () => {
         ? await fetch(`${server}/random?api_key=${key}`)
         : await fetch(`${server}?api_key=${key}&ids=${uploadIds}`);
     const json = await promise.json();
-    // console.log(json.data);
     return json.data;
   } catch (error) {
     console.log(error.message);

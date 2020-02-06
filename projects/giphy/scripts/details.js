@@ -1,5 +1,4 @@
 import * as storage from './localStorage.js';
-import * as favorites from './favorites.js';
 
 // Copy to Clipboard functionality
 const copyToClipboard = url => {
@@ -18,7 +17,7 @@ const getGifUrl = ev => {
   changeTypeIcon.attr('uk-icon', 'check');
   setTimeout(function() {
     changeTypeIcon.attr('uk-icon', 'copy');
-  }, 2500);
+  }, 2000);
 };
 
 // Changes favorite button on initial modal open based on favorite status
