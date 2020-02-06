@@ -35,7 +35,7 @@ const animToggle = (() => {
         const user =
         /*eslint-disable*/
         gif.title.replace('GIF', '').split(' by ')[1] &&
-        gif.title.replace('GIF', '').split(' by ')[1] !== ''
+        gif.title.replace('GIF', '').split(' by ')[1] !== ' '
         ? gif.title.replace('GIF', '').split(' by ')[1]
         : gif.user
         ? gif.user.display_name
@@ -44,7 +44,6 @@ const animToggle = (() => {
         const userProfile = !gif.user
           ? 'javascript:void(0)'
           : gif.user.profile_url;
-        const userImage = gif.user === undefined ? '' : gif.user.avatar_url;
         $container.append(`
           <div uk-scrollspy="cls:uk-animation-fade; repeat: true" style="position:relative" class="giphy-gif-grid details-overlay">
             <img class="uk-responsive-width uk-responsive-height uk-animation-slide-bottom-medium giphy-gif" width="500" height="500" id="${gif.id}" 
@@ -61,7 +60,7 @@ const animToggle = (() => {
                     <p class="uk-margin-remove uk-text-emphasis">${title}</p>
                     <div class="uk-margin-remove">
                       <p class="uk-display-inline uk-text-small uk-text-meta">by</p>
-                      <a href="${userProfile}" target="_blank" class="uk-display-inline uk-link-muted uk-link-text uk-text-small uk-text-italic">${user}</a>
+                      <a href="${userProfile}" class="uk-display-inline uk-link-muted uk-link-text uk-text-small uk-text-italic user-link-${gif.id}">${user}</a>
                     </div>
                   </div>
                   <div class="uk-float-right modal-buttons">
@@ -75,9 +74,10 @@ const animToggle = (() => {
             </div>
           </div>
         `);
-        if (userImage) {
+        if (gif.user) {
           $(`.user-${gif.id}`).prepend(`<img class="uk-float-left uk-border-circle user-avatar
-          uk-margin-small-right uk-margin-small-top" src="${userImage}">`)
+          uk-margin-small-right uk-margin-small-top" src="${gif.user.avatar_url}">`)
+          $(`.user-link-${gif.id}`).attr('target', "_blank" )
         }
         /*eslint-disable*/
       });
