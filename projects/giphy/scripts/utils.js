@@ -175,7 +175,7 @@ const toggleSearchBar = () => {
 const cancelPageEvents = () => {
   $('#anim-toggle').off();
   $('#grid-toggle').off();
-  $('.menu').off('click', toggleSearchBar);
+  $(`.menu`).off('click', toggleSearchBar);
   $(window).off();
 };
 
@@ -190,4 +190,5 @@ export {
   animate,
   delayInput,
   cancelPageEvents,
+  toggleSearchBar,
 };
